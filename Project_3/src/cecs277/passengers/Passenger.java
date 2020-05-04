@@ -8,13 +8,14 @@ import cecs277.elevators.ElevatorObserver;
 /**
  * A passenger that is either waiting on a floor or riding an elevator.
  */
-public abstract class Passenger implements PassengerFactory, FloorObserver, ElevatorObserver {
+public class Passenger implements FloorObserver, ElevatorObserver {
+	private int mIdentifier;
+	private PassengerState mCurrentState;
 	private String mName, mShortName;
 	private TravelStrategy mTravelStrategy;
 	private BoardingStrategy mBoardingStrategy;
 	private EmbarkingStrategy mEmbarkingStrategy;
 	private DebarkingStrategy mDebarkingStrategy;
-
 
 	public Passenger(String name, String shortName,
 					 TravelStrategy travelStrategy,
@@ -28,7 +29,6 @@ public abstract class Passenger implements PassengerFactory, FloorObserver, Elev
 		mBoardingStrategy = boardingStrategy;
 		mEmbarkingStrategy = embarkingStrategy;
 		mDebarkingStrategy = debarkingStrategy;
-
 		mIdentifier = nextPassengerId();
 		mCurrentState = PassengerState.WAITING_ON_FLOOR;
 	}
@@ -45,10 +45,6 @@ public abstract class Passenger implements PassengerFactory, FloorObserver, Elev
 	protected static int nextPassengerId() {
 		return ++mNextId;
 	}
-	
-	private int mIdentifier;
-	private PassengerState mCurrentState;
-
 	
 	public void setState(PassengerState state) {
 		mCurrentState = state;
