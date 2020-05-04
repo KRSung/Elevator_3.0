@@ -7,19 +7,15 @@ import cecs277.events.PassengerNextDestinationEvent;
 
 public class SingleDestinationTravel implements TravelStrategy {
 
+    private final Simulation mSimulation;
     private int mDestinationFloor, mDurationTime;
 
-    public SingleDestinationTravel(int destinationFloor, int durationTime) {
+    public SingleDestinationTravel(int destinationFloor, int durationTime, Simulation sim) {
         this.mDestinationFloor = destinationFloor;
         this.mDurationTime = durationTime;
+        this.mSimulation = sim;
     }
-
-
-    protected void scheduleNextDestination(Elevator elevator) {
-
-
-    }
-
+    
     @Override
     public int getDestination() {
         return 0;
@@ -31,9 +27,8 @@ public class SingleDestinationTravel implements TravelStrategy {
             System.out.println(passenger.getName() + passenger.getId() + " is leaving the building.");
         } else {
             mDestinationFloor = 1;
-            Simulation s = currentFloor.g;
-            PassengerNextDestinationEvent ev = new PassengerNextDestinationEvent(s.currentTime() + mDurationTime, passenger, currentFloor);
-            s.scheduleEvent(ev);
+            PassengerNextDestinationEvent ev = new PassengerNextDestinationEvent(mSimulation.currentTime() + mDurationTime, passenger, currentFloor);
+            mSimulation.scheduleEvent(ev);
         }
     }
 }
