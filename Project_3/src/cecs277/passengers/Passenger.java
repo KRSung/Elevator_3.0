@@ -8,7 +8,31 @@ import cecs277.elevators.ElevatorObserver;
 /**
  * A passenger that is either waiting on a floor or riding an elevator.
  */
-public abstract class Passenger implements FloorObserver, ElevatorObserver {
+public abstract class Passenger implements PassengerFactory, FloorObserver, ElevatorObserver {
+	private String mName, mShortName;
+	private TravelStrategy mTravelStrategy;
+	private BoardingStrategy mBoardingStrategy;
+	private EmbarkingStrategy mEmbarkingStrategy;
+	private DebarkingStrategy mDebarkingStrategy;
+
+
+	public Passenger(String name, String shortName,
+					 TravelStrategy travelStrategy,
+					 BoardingStrategy boardingStrategy,
+					 EmbarkingStrategy embarkingStrategy,
+					 DebarkingStrategy debarkingStrategy) {
+
+		mName = name;
+		mShortName = shortName;
+		mTravelStrategy = travelStrategy;
+		mBoardingStrategy = boardingStrategy;
+		mEmbarkingStrategy = embarkingStrategy;
+		mDebarkingStrategy = debarkingStrategy;
+
+		mIdentifier = nextPassengerId();
+		mCurrentState = PassengerState.WAITING_ON_FLOOR;
+	}
+
 	// An enum for determining whether a Passenger is on a floor, an elevator, or busy (visiting a room in the building).
 	public enum PassengerState {
 		WAITING_ON_FLOOR,
@@ -24,11 +48,7 @@ public abstract class Passenger implements FloorObserver, ElevatorObserver {
 	
 	private int mIdentifier;
 	private PassengerState mCurrentState;
-	
-	public Passenger() {
-		mIdentifier = nextPassengerId();
-		mCurrentState = PassengerState.WAITING_ON_FLOOR;
-	}
+
 	
 	public void setState(PassengerState state) {
 		mCurrentState = state;
