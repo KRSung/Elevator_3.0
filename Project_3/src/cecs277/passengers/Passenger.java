@@ -49,7 +49,11 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 	public void setState(PassengerState state) {
 		mCurrentState = state;
 	}
-	
+
+	public String getName() {
+		return mName;
+	}
+
 	/**
 	 * Gets the passenger's unique identifier.
 	 */
@@ -127,7 +131,7 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 	/**
 	 * Returns the passenger's current destination (what floor they are travelling to).
 	 */
-	public abstract int getDestination();
+//	public abstract int getDestination();
 	
 	/**
 	 * Called to determine whether the passenger will board the given elevator that is moving in the direction the
@@ -169,5 +173,5 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 		Passenger passenger = (Passenger)o;
 		return mIdentifier == passenger.mIdentifier;
 	}
-	
+
 }
