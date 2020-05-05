@@ -3,12 +3,19 @@ package cecs277;
 import cecs277.buildings.Building;
 import cecs277.events.SimulationEvent;
 import cecs277.events.SpawnPassengerEvent;
+import cecs277.passengers.PassengerFactory;
+import cecs277.passengers.VisitorFactory;
+import cecs277.passengers.WorkerFactory;
+import com.sun.security.jgss.GSSUtil;
 
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Simulation {
+	private int mTotal;
+	private List<PassengerFactory> mPassengerFactories;
 	private Random mRandom;
 	private PriorityQueue<SimulationEvent> mEvents = new PriorityQueue<>();
 	private long mCurrentTime;
@@ -42,10 +49,23 @@ public class Simulation {
 	}
 	
 	public void startSimulation(Scanner input) {
+//		mPassengerFactories.add(new WorkerFactory(this));
+//		mPassengerFactories.add(new VisitorFactory(this));
+//		mPassengerFactories.add(new WorkerFactory(this));
+//		mPassengerFactories.add(new WorkerFactory(this));
+//		mPassengerFactories.add(new WorkerFactory(this));
+//		mPassengerFactories.add(new WorkerFactory(this));
+
 		System.out.println("Enter number of floors: ");
 		int floors = input.nextInt();
 		System.out.println("Enter number of elevators: ");
 		int elevCount = input.nextInt();
+
+//		for(PassengerFactory p: mPassengerFactories){
+//			System.out.println("Enter the weight of the " + p + " factory:");
+//			input.nextInt();
+//		}
+
 		Building b = new Building(floors, elevCount, this);
 		SpawnPassengerEvent ev = new SpawnPassengerEvent(0, b);
 		scheduleEvent(ev);

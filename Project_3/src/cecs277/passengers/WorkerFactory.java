@@ -2,14 +2,10 @@ package cecs277.passengers;
 
 import cecs277.Simulation;
 
-public class VisitorFactory implements PassengerFactory {
-    private Simulation mSimulation;
-    private int mFactoryWeight;
-
-    public VisitorFactory(Simulation simulation) {
-        mFactoryWeight = factoryWeight;
-        mSimulation = simulation;
-        Passenger p = new Passenger("Visitor", "V", createTravelStrategy(simulation),
+public class WorkerFactory implements PassengerFactory {
+    public int mFactoryWeight;
+    public WorkerFactory (Simulation simulation){
+        Passenger p = new Passenger("Worker", "W", createTravelStrategy(simulation),
                 createBoardingStrategy(simulation),
                 createEmbarkingStrategy(simulation),
                 createDebarkingStrategy(simulation));
@@ -17,12 +13,16 @@ public class VisitorFactory implements PassengerFactory {
 
     @Override
     public String factoryName() {
-        return "Visitor";
+        return null;
     }
 
     @Override
     public String shortName() {
-        return "V";
+        return null;
+    }
+
+    public void setFactoryWeight(int factoryWeight){
+        mFactoryWeight = factoryWeight;
     }
 
     @Override
@@ -32,21 +32,21 @@ public class VisitorFactory implements PassengerFactory {
 
     @Override
     public BoardingStrategy createBoardingStrategy(Simulation simulation) {
-        return new CapacityBoarding();
+        return new ThresholdBoarding();
     }
 
     @Override
     public TravelStrategy createTravelStrategy(Simulation simulation) {
-        return new SingleDestinationTravel();
+        return null;
     }
 
     @Override
     public EmbarkingStrategy createEmbarkingStrategy(Simulation simulation) {
-        return new ResponsibleEmbarking();
+        return null;
     }
 
     @Override
     public DebarkingStrategy createDebarkingStrategy(Simulation simulation) {
-        return new AttentiveDebarking();
+        return null;
     }
 }
