@@ -2,17 +2,21 @@ package cecs277.passengers;
 
 import cecs277.Simulation;
 
+import java.util.Random;
+
+
+//FIXME
 public class VisitorFactory implements PassengerFactory {
-    private Simulation mSimulation;
+//    private Simulation mSimulation;
     private int mFactoryWeight;
 
     public VisitorFactory(Simulation simulation, int factoryWeight) {
         mFactoryWeight = factoryWeight;
-        mSimulation = simulation;
-        Passenger p = new Passenger("Visitor", "V", createTravelStrategy(simulation),
-                createBoardingStrategy(simulation),
-                createEmbarkingStrategy(simulation),
-                createDebarkingStrategy(simulation));
+//        mSimulation = simulation;
+//        Passenger p = new Passenger("Visitor", "V", createTravelStrategy(simulation),
+//                createBoardingStrategy(simulation),
+//                createEmbarkingStrategy(simulation),
+//                createDebarkingStrategy(simulation));
     }
 
     @Override
@@ -37,7 +41,8 @@ public class VisitorFactory implements PassengerFactory {
 
     @Override
     public TravelStrategy createTravelStrategy(Simulation simulation) {
-        return new SingleDestinationTravel();
+        Random r = simulation.getRandom();
+        return new SingleDestinationTravel(r.nextInt(simulation.getBuilding().getFloorCount() - 1) + 2, (int) (r.nextGaussian() * 1200 + 3600 ), simulation);
     }
 
     @Override

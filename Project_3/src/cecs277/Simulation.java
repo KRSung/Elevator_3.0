@@ -19,7 +19,12 @@ public class Simulation {
 	private Random mRandom;
 	private PriorityQueue<SimulationEvent> mEvents = new PriorityQueue<>();
 	private long mCurrentTime;
-	
+
+	public Building getBuilding() {
+		return mBuilding;
+	}
+
+	private Building mBuilding;
 	/**
 	 * Seeds the Simulation with a given random number generator.
 	 */
@@ -95,8 +100,8 @@ public class Simulation {
 //			input.nextInt();
 //		}
 
-		Building b = new Building(floors, elevCount, this);
-		SpawnPassengerEvent ev = new SpawnPassengerEvent(0, b);
+		mBuilding = new Building(floors, elevCount, this);
+		SpawnPassengerEvent ev = new SpawnPassengerEvent(0, mBuilding);
 		scheduleEvent(ev);
 		
 		long nextSimLength = -1;
@@ -139,7 +144,7 @@ public class Simulation {
 			// DONE: print the Building after simulating the requested time.
 
 			System.out.println("Building");
-			b.toString();
+			mBuilding.toString();
 
 			//i didnt want to check with an if statement each iteration
 			//if you prefer that way or have a better way we can change it

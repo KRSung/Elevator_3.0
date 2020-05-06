@@ -18,7 +18,7 @@ public class SingleDestinationTravel implements TravelStrategy {
     
     @Override
     public int getDestination() {
-        return 0;
+        return mDestinationFloor;
     }
 
     @Override

@@ -1,6 +1,11 @@
 package cecs277.passengers;
 
 import cecs277.Simulation;
+import cecs277.buildings.Building;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class WorkerFactory implements PassengerFactory {
     public int mFactoryWeight;
@@ -37,7 +42,28 @@ public class WorkerFactory implements PassengerFactory {
 
     @Override
     public TravelStrategy createTravelStrategy(Simulation simulation) {
-        return null;
+        //FIXME
+        Building building = simulation.getBuilding();
+        Random r = simulation.getBuilding().getSimulation().getRandom();
+        int destinations = r.nextInt(4) + 2;
+        List<Integer> floors = new ArrayList<>();
+        List<Long> durations = new ArrayList<>();
+        int destination;
+        int last = -1;
+        for (int i = 0; i < destinations; i++){
+            destination = r.nextInt(building.getFloorCount() - 1) + 2;
+            while(destination == last){
+                destination = r.nextInt(building.getFloorCount() - 1) + 2;
+            }
+            floors.add(destination);
+            last = destination;
+        }
+
+        for (int i = 0; i < destinations; i++){
+            durations.add((long)(r.nextGaussian() * 180 + 600));
+        }
+
+        return new MultipleDestinationTravel(floors, durations);
     }
 
     @Override
