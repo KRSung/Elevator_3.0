@@ -4,7 +4,7 @@ import cecs277.Simulation;
 
 public class WorkerFactory implements PassengerFactory {
     public int mFactoryWeight;
-    public WorkerFactory (Simulation simulation){
+    public WorkerFactory (Simulation simulation, int factoryWeight){
         Passenger p = new Passenger("Worker", "W", createTravelStrategy(simulation),
                 createBoardingStrategy(simulation),
                 createEmbarkingStrategy(simulation),

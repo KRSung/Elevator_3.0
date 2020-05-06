@@ -6,7 +6,7 @@ public class VisitorFactory implements PassengerFactory {
     private Simulation mSimulation;
     private int mFactoryWeight;
 
-    public VisitorFactory(Simulation simulation) {
+    public VisitorFactory(Simulation simulation, int factoryWeight) {
         mFactoryWeight = factoryWeight;
         mSimulation = simulation;
         Passenger p = new Passenger("Visitor", "V", createTravelStrategy(simulation),
