@@ -49,12 +49,41 @@ public class Simulation {
 	}
 	
 	public void startSimulation(Scanner input) {
-//		mPassengerFactories.add(new WorkerFactory(this));
-//		mPassengerFactories.add(new VisitorFactory(this));
-//		mPassengerFactories.add(new WorkerFactory(this));
-//		mPassengerFactories.add(new WorkerFactory(this));
-//		mPassengerFactories.add(new WorkerFactory(this));
-//		mPassengerFactories.add(new WorkerFactory(this));
+		System.out.println("Create Worker Factory (y = yes, n = no): ");
+		if (input.next().equals("y")){
+			System.out.println("Enter weight for factory: ");
+			mPassengerFactories.add(new WorkerFactory(this, input.nextInt()));
+		}
+
+		System.out.println("Create Visitor Factory (y = yes, n = no): ");
+		if (input.next().equals("y")){
+			System.out.println("Enter weight for factory: ");
+			mPassengerFactories.add(new VisitorFactory(this, input.nextInt()));
+		}
+
+		System.out.println("Create Child Factory (y = yes, n = no): ");
+		if (input.next().equals("y")){
+			System.out.println("Enter weight for factory: ");
+			mPassengerFactories.add(new ChildFactory(this, input.nextInt()));
+		}
+
+		System.out.println("Create Delivery Person Factory (y = yes, n = no): ");
+		if (input.next().equals("y")){
+			System.out.println("Enter weight for factory: ");
+			mPassengerFactories.add(new DeliveryPersonFactory(this, input.nextInt()));
+		}
+
+		System.out.println("Create Stoner Factory (y = yes, n = no): ");
+		if (input.next().equals("y")){
+			System.out.println("Enter weight for factory: ");
+			mPassengerFactories.add(new StonerFactory(this, input.nextInt()));
+		}
+
+		System.out.println("Create Jerk Factory (y = yes, n = no): ");
+		if (input.next().equals("y")){
+			System.out.println("Enter weight for factory: ");
+			mPassengerFactories.add(new JerkFactory(this, input.nextInt()));
+		}
 
 		System.out.println("Enter number of floors: ");
 		int floors = input.nextInt();
