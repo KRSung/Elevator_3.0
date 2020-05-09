@@ -9,21 +9,19 @@ import java.util.Random;
 
 public class WorkerPassengerFactory implements PassengerFactory {
     public int mFactoryWeight;
-    public WorkerPassengerFactory(Simulation simulation, int factoryWeight){
-        Passenger p = new Passenger("Worker", "W", createTravelStrategy(simulation),
-                createBoardingStrategy(simulation),
-                createEmbarkingStrategy(simulation),
-                createDebarkingStrategy(simulation));
+
+    public WorkerPassengerFactory (int factoryWeight){
+        this.mFactoryWeight = factoryWeight;
     }
 
     @Override
     public String factoryName() {
-        return null;
+        return "Worker";
     }
 
     @Override
     public String shortName() {
-        return null;
+        return "W";
     }
 
     public void setFactoryWeight(int factoryWeight){
@@ -37,18 +35,17 @@ public class WorkerPassengerFactory implements PassengerFactory {
 
     @Override
     public BoardingStrategy createBoardingStrategy(Simulation simulation) {
-        return new ThresholdBoarding();
+        return new ThresholdBoarding(3);
     }
 
     @Override
     public TravelStrategy createTravelStrategy(Simulation simulation) {
-        //FIXME
         List<Integer> floors = new ArrayList<>();
         List<Long> durations = new ArrayList<>();
         int destination;
         int last = -1;
         Building building = simulation.getBuilding();
-        Random r = simulation.getBuilding().getSimulation().getRandom();
+        Random r = simulation.getRandom();
         int destinations = r.nextInt(4) + 2;
 
         for (int i = 0; i < destinations; i++){
@@ -69,11 +66,11 @@ public class WorkerPassengerFactory implements PassengerFactory {
 
     @Override
     public EmbarkingStrategy createEmbarkingStrategy(Simulation simulation) {
-        return null;
+        return new ResponsibleEmbarking();
     }
 
     @Override
     public DebarkingStrategy createDebarkingStrategy(Simulation simulation) {
-        return null;
+        return new AttentiveDebarking();
     }
 }
