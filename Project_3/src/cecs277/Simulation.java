@@ -121,12 +121,12 @@ public class Simulation {
 		System.out.println("Enter seed value: ");
 		int x = s.nextInt();
 		Simulation sim = new Simulation(new Random(x));
-		sim.mPassengerFactories.add(new VisitorPassengerFactory(sim, 10));
-		sim.mPassengerFactories.add(new WorkerPassengerFactory(sim, 2));
-		sim.mPassengerFactories.add(new ChildFactory(sim, 3));
-		sim.mPassengerFactories.add(new DeliveryPersonFactory(sim, 2));
-		sim.mPassengerFactories.add(new StonerFactory(sim, 1));
-		sim.mPassengerFactories.add(new JerkFactory(sim, 2));
+		sim.mPassengerFactories.add(new VisitorPassengerFactory(10));
+		sim.mPassengerFactories.add(new WorkerPassengerFactory(2));
+		sim.mPassengerFactories.add(new ChildPassengerFactory(3));
+		sim.mPassengerFactories.add(new DeliveryPassengerFactory(2));
+		sim.mPassengerFactories.add(new StonerPassengerFactory(1));
+		sim.mPassengerFactories.add(new JerkPassengerFactory(2));
 		sim.startSimulation(s);
 	}
 }

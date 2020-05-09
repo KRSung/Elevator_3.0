@@ -7,13 +7,11 @@ import java.util.Random;
 
 //FIXME
 public class VisitorPassengerFactory implements PassengerFactory {
-//    private Simulation mSimulation;
     private int mFactoryWeight;
 
     public VisitorPassengerFactory(int factoryWeight){
         mFactoryWeight = factoryWeight;
     }
-
 
     @Override
     public String factoryName() {
