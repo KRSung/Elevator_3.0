@@ -348,6 +348,10 @@ public class Elevator implements FloorObserver {
 	public void removeObserver(ElevatorObserver observer) {
 		mObservers.remove(observer);
 	}
+
+	public void requestFloor(int floor){
+		mRequestedFloors[floor - 1] = true;
+	}
 	
 	
 	// FloorObserver methods
