@@ -75,7 +75,7 @@ public class Building implements ElevatorObserver, FloorObserver {
 		for (int i = 0; i < mElevators.size(); i++){
 			visualRepresentation.append(mElevators.get(i)).append("\n");
 		}
-		System.out.println(visualRepresentation.toString());
+//		System.out.println(visualRepresentation.toString());
 		return visualRepresentation.toString();
 	}
 	

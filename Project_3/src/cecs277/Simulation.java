@@ -3,9 +3,7 @@ package cecs277;
 import cecs277.buildings.Building;
 import cecs277.events.SimulationEvent;
 import cecs277.events.SpawnPassengerEvent;
-import cecs277.passengers.PassengerFactory;
-import cecs277.passengers.VisitorPassengerFactory;
-import cecs277.passengers.WorkerPassengerFactory;
+import cecs277.passengers.*;
 
 import java.util.List;
 import java.util.PriorityQueue;
@@ -53,51 +51,11 @@ public class Simulation {
 	}
 	
 	public void startSimulation(Scanner input) {
-		System.out.println("Create Worker Factory (y = yes, n = no): ");
-		if (input.next().equals("y")){
-			System.out.println("Enter weight for factory: ");
-			mPassengerFactories.add(new WorkerPassengerFactory(this, input.nextInt()));
-		}
-
-		System.out.println("Create Visitor Factory (y = yes, n = no): ");
-		if (input.next().equals("y")){
-			System.out.println("Enter weight for factory: ");
-			mPassengerFactories.add(new VisitorPassengerFactory(this, input.nextInt()));
-		}
-
-		System.out.println("Create Child Factory (y = yes, n = no): ");
-		if (input.next().equals("y")){
-			System.out.println("Enter weight for factory: ");
-			mPassengerFactories.add(new ChildFactory(this, input.nextInt()));
-		}
-
-		System.out.println("Create Delivery Person Factory (y = yes, n = no): ");
-		if (input.next().equals("y")){
-			System.out.println("Enter weight for factory: ");
-			mPassengerFactories.add(new DeliveryPersonFactory(this, input.nextInt()));
-		}
-
-		System.out.println("Create Stoner Factory (y = yes, n = no): ");
-		if (input.next().equals("y")){
-			System.out.println("Enter weight for factory: ");
-			mPassengerFactories.add(new StonerFactory(this, input.nextInt()));
-		}
-
-		System.out.println("Create Jerk Factory (y = yes, n = no): ");
-		if (input.next().equals("y")){
-			System.out.println("Enter weight for factory: ");
-			mPassengerFactories.add(new JerkFactory(this, input.nextInt()));
-		}
 
 		System.out.println("Enter number of floors: ");
 		int floors = input.nextInt();
 		System.out.println("Enter number of elevators: ");
 		int elevCount = input.nextInt();
-
-//		for(PassengerFactory p: mPassengerFactories){
-//			System.out.println("Enter the weight of the " + p + " factory:");
-//			input.nextInt();
-//		}
 
 		mBuilding = new Building(floors, elevCount, this);
 		SpawnPassengerEvent ev = new SpawnPassengerEvent(0, mBuilding);
@@ -143,10 +101,8 @@ public class Simulation {
 			// DONE: print the Building after simulating the requested time.
 
 			System.out.println("Building");
-			mBuilding.toString();
+			System.out.println(mBuilding.toString());
 
-			//i didnt want to check with an if statement each iteration
-			//if you prefer that way or have a better way we can change it
 			System.out.println("Enter time in seconds to simulate: ");
 			nextSimLength = input.nextInt();
 		}
@@ -162,6 +118,12 @@ public class Simulation {
 		System.out.println("Enter seed value: ");
 		int x = s.nextInt();
 		Simulation sim = new Simulation(new Random(x));
+		sim.mPassengerFactories.add(new VisitorPassengerFactory(sim, 10));
+		sim.mPassengerFactories.add(new WorkerPassengerFactory(sim, 2));
+		sim.mPassengerFactories.add(new ChildFactory(sim, 3));
+		sim.mPassengerFactories.add(new DeliveryPersonFactory(sim, 2));
+		sim.mPassengerFactories.add(new StonerFactory(sim, 1));
+		sim.mPassengerFactories.add(new JerkFactory(sim, 2));
 		sim.startSimulation(s);
 	}
 }
