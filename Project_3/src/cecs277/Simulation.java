@@ -3,9 +3,7 @@ package cecs277;
 import cecs277.buildings.Building;
 import cecs277.events.SimulationEvent;
 import cecs277.events.SpawnPassengerEvent;
-import cecs277.passengers.PassengerFactory;
-import cecs277.passengers.VisitorPassengerFactory;
-import cecs277.passengers.WorkerPassengerFactory;
+import cecs277.passengers.*;
 
 import java.util.List;
 import java.util.PriorityQueue;
@@ -21,6 +19,10 @@ public class Simulation {
 
 	public Building getBuilding() {
 		return mBuilding;
+	}
+
+	public List<PassengerFactory> getPassengerFactories() {
+		return mPassengerFactories;
 	}
 
 	private Building mBuilding;
@@ -68,25 +70,25 @@ public class Simulation {
 		System.out.println("Create Child Factory (y = yes, n = no): ");
 		if (input.next().equals("y")){
 			System.out.println("Enter weight for factory: ");
-			mPassengerFactories.add(new ChildFactory(this, input.nextInt()));
+			mPassengerFactories.add(new ChildPassengerFactory(this, input.nextInt()));
 		}
 
 		System.out.println("Create Delivery Person Factory (y = yes, n = no): ");
 		if (input.next().equals("y")){
 			System.out.println("Enter weight for factory: ");
-			mPassengerFactories.add(new DeliveryPersonFactory(this, input.nextInt()));
+			mPassengerFactories.add(new DeliveryPassengerFactory(this, input.nextInt()));
 		}
 
 		System.out.println("Create Stoner Factory (y = yes, n = no): ");
 		if (input.next().equals("y")){
 			System.out.println("Enter weight for factory: ");
-			mPassengerFactories.add(new StonerFactory(this, input.nextInt()));
+			mPassengerFactories.add(new StonerPassengerFactory(this, input.nextInt()));
 		}
 
 		System.out.println("Create Jerk Factory (y = yes, n = no): ");
 		if (input.next().equals("y")){
 			System.out.println("Enter weight for factory: ");
-			mPassengerFactories.add(new JerkFactory(this, input.nextInt()));
+			mPassengerFactories.add(new JerkPassengerFactory(this, input.nextInt()));
 		}
 
 		System.out.println("Enter number of floors: ");
