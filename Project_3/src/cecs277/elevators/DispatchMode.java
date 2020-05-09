@@ -33,4 +33,20 @@ public class DispatchMode implements OperationMode {
 	public String toString() {
 		return "Dispatching to " + mDestination.getNumber() + " " + mDesiredDirection;
 	}
+
+	@Override
+	public boolean canBeDispatchedToFloor(Elevator elevator, Floor floor) {
+		return false;
+	}
+
+	@Override
+	public void dispatchToFloor(Elevator elevator, Floor targetFloor, Elevator.Direction targetDirection) {	}
+
+	@Override
+	public void directionRequested(Elevator elevator, Floor floor, Elevator.Direction direction) { }
+
+	@Override
+	public void tick(Elevator elevator) {
+
+	}
 }

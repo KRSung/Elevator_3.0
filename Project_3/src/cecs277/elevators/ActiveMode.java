@@ -30,14 +30,10 @@ public class ActiveMode implements OperationMode {
 	}
 
 	@Override
-	public void dispatchToFloor(Elevator elevator, Floor targetFloor, Elevator.Direction targetDirection) {
-
-	}
+	public void dispatchToFloor(Elevator elevator, Floor targetFloor, Elevator.Direction targetDirection) { }
 
 	@Override
-	public void directionRequested(Elevator elevator, Floor floor, Elevator.Direction direction) {
-
-	}
+	public void directionRequested(Elevator elevator, Floor floor, Elevator.Direction direction) { }
 
 	@Override
 	public void tick(Elevator elevator) {

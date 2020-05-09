@@ -12,7 +12,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Elevator implements FloorObserver {
-	
+	private OperationMode mOpMode = new IdleMode();
+
+	private void scheduleOperationChange(ElevatorState state, long timeFromNow) {
+		Simulation sim = mBuilding.getSimulation();
+		sim.scheduleEvent(new ElevatorStateEvent(timeFromNow + sim.currentTime(), state, this));
+	}
+
+	public void setOpMode(OperationMode opMode) {
+		mOpMode = opMode;
+	}
+
 	public enum ElevatorState {
 		IDLE_STATE,
 		DOORS_OPENING,
