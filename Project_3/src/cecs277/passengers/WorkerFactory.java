@@ -43,13 +43,14 @@ public class WorkerFactory implements PassengerFactory {
     @Override
     public TravelStrategy createTravelStrategy(Simulation simulation) {
         //FIXME
-        Building building = simulation.getBuilding();
-        Random r = simulation.getBuilding().getSimulation().getRandom();
-        int destinations = r.nextInt(4) + 2;
         List<Integer> floors = new ArrayList<>();
         List<Long> durations = new ArrayList<>();
         int destination;
         int last = -1;
+        Building building = simulation.getBuilding();
+        Random r = simulation.getBuilding().getSimulation().getRandom();
+        int destinations = r.nextInt(4) + 2;
+
         for (int i = 0; i < destinations; i++){
             destination = r.nextInt(building.getFloorCount() - 1) + 2;
             while(destination == last){

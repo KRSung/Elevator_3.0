@@ -5,11 +5,11 @@ import cecs277.elevators.Elevator;
 public class ConfusedDebarking implements DebarkingStrategy {
     @Override
     public boolean willLeaveElevator(Passenger passenger, Elevator elevator) {
-        return false;
+        return elevator.getCurrentFloor().getNumber() == 1;
     }
 
     @Override
     public void departedElevator(Passenger passenger, Elevator elevator) {
-
+        //TODO leaves the building
     }
 }

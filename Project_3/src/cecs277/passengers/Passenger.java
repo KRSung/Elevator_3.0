@@ -54,6 +54,10 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 		return mName;
 	}
 
+	public int getDestination(){
+		return mTravelStrategy.getDestination();
+	}
+
 	/**
 	 * Gets the passenger's unique identifier.
 	 */
@@ -89,16 +93,35 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 			 "not waiting on that floor.");
 		}
 	}
-	
+
+	@Override
+	public void elevatorDecelerating(Elevator sender) {
+
+	}
+
 	/**
 	 * Handles an observed elevator opening its doors. Depart the elevator if we are on it; otherwise, enter the elevator.
 	 */
 	@Override
 	public void elevatorDoorsOpened(Elevator elevator) {
+
+		if (mCurrentState == PassengerState.ON_ELEVATOR) {
+			if (mDebarkingStrategy.willLeaveElevator(this, elevator)) {
+				mDebarkingStrategy.departedElevator(this, elevator);
+			}
+		}
+		else if (mCurrentState == PassengerState.WAITING_ON_FLOOR){
+			if (mBoardingStrategy.willBoardElevator(this, elevator)){
+				//TODO after adding the passenger to the elevator inform the embarking strategy so it can request floors
+			}
+		}
+
+
+		//OLD CODE
 		// The elevator is arriving at our destination. Remove ourselves from the elevator, and stop observing it.
 		// Does NOT handle any "next" destination...
 
-		if (mCurrentState == PassengerState.ON_ELEVATOR && elevator.getCurrentFloor().getNumber() == getDestination()) {
+		/*if (mCurrentState == PassengerState.ON_ELEVATOR && elevator.getCurrentFloor().getNumber() == getDestination()) {
 			// DONE: remove this passenger from the elevator, and as an observer of the elevator. Call the
 			// leavingElevator method to allow a derived class to do something when the passenger departs.
 			// Set the current state to BUSY.
@@ -125,7 +148,7 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 				setState(PassengerState.ON_ELEVATOR);
 			}
 			
-		}
+		}*/
 	}
 	
 	/**
@@ -137,12 +160,12 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 	 * Called to determine whether the passenger will board the given elevator that is moving in the direction the
 	 * passenger wants to travel.
 	 */
-	protected abstract boolean willBoardElevator(Elevator elevator);
+//	protected abstract boolean willBoardElevator(Elevator elevator);
 	
 	/**
 	 * Called when the passenger is departing the given elevator.
 	 */
-	protected abstract void leavingElevator(Elevator elevator);
+//	protected abstract void leavingElevator(Elevator elevator);
 	
 	// This will be overridden by derived types.
 	@Override
