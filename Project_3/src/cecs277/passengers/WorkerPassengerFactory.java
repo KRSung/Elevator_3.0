@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class WorkerFactory implements PassengerFactory {
+public class WorkerPassengerFactory implements PassengerFactory {
     public int mFactoryWeight;
-    public WorkerFactory (Simulation simulation, int factoryWeight){
+    public WorkerPassengerFactory(Simulation simulation, int factoryWeight){
         Passenger p = new Passenger("Worker", "W", createTravelStrategy(simulation),
                 createBoardingStrategy(simulation),
                 createEmbarkingStrategy(simulation),
