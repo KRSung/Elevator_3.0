@@ -9,7 +9,9 @@ import cecs277.events.ElevatorStateEvent;
 import cecs277.passengers.Passenger;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 public class Elevator implements FloorObserver {
@@ -73,7 +75,9 @@ public class Elevator implements FloorObserver {
 	}
 
 	protected void announceElevatorDecelerating(){
-		for(ElevatorObserver o : mObservers){
+		ArrayList<ElevatorObserver> mObserverCopy = new ArrayList<>(mObservers);
+
+		for(ElevatorObserver o : mObserverCopy){
 			o.elevatorDecelerating(this);
 		}
 	}
