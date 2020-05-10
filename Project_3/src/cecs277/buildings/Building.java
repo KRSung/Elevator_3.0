@@ -14,7 +14,7 @@ public class Building implements ElevatorObserver, FloorObserver {
 	private List<Elevator> mElevators = new ArrayList<>();
 	private List<Floor> mFloors = new ArrayList<>();
 	private Simulation mSimulation;
-	private Queue<Integer> mWaitingFloors = new ArrayDeque<>();
+	private Queue<Floor> mWaitingFloors = new ArrayDeque<>();
 	
 	public Building(int floors, int elevatorCount, Simulation sim) {
 		mSimulation = sim;
@@ -91,9 +91,9 @@ public class Building implements ElevatorObserver, FloorObserver {
 		return mSimulation;
 	}
 
-	public Queue<Integer> getmWaitingFloors(){
-		return mWaitingFloors;
-	}
+//	public Queue<Integer> getmWaitingFloors(){
+//		return mWaitingFloors;
+//	}
 	
 	@Override
 	public void elevatorDecelerating(Elevator elevator) {
@@ -110,18 +110,16 @@ public class Building implements ElevatorObserver, FloorObserver {
 		// DONE: if mWaitingFloors is not empty, remove the first entry from the queue and dispatch the elevator to that floor.
 		//added the !
 		if (!mWaitingFloors.isEmpty()){
-			elevator.dispatchTo(mFloors.get(mWaitingFloors.remove() - 1));
+			elevator.dispatchToFloor(mWaitingFloors.remove());
 		}
 	}
 	
 	@Override
 	public void elevatorArriving(Floor sender, Elevator elevator) {
-//		if (!mWaitingFloors.contains(sender.getNumber())){
-//			mWaitingFloors.add(sender.getNumber());
-//		}
-//		System.out.println("\nElevator Arriving " + sender.getNumber() + " mWaitingFloors " + mWaitingFloors.toString() + "\n");
-
-		// DONE: add the floor mWaitingFloors if it is not already in the queue.
+		mWaitingFloors.removeIf(f -> f.getNumber() == sender.getNumber() &&
+				(elevator.getCurrentDirection() == Elevator.Direction.NOT_MOVING ||
+						(elevator.getCurrentDirection() == Elevator.Direction.MOVING_UP && f.getUpButtonPressed()) ||
+						(elevator.getCurrentDirection() == Elevator.Direction.MOVING_DOWN && f.getDownButtonPressed())));
 	}
 	
 	@Override
@@ -131,15 +129,15 @@ public class Building implements ElevatorObserver, FloorObserver {
 
 		//DONE i wonder if we should break after dispatching one elevator or if it should be a race between elevators lol
 		for(Elevator e: mElevators){
-			if (e.isIdle()){
-				e.dispatchTo(floor);
+			if (e.canBeDispatchedToFloor(floor)){
+				e.dispatchToFloor(floor);
 				elevatorDispatched = true;
 				break;
 			}
 		}
 
 		if (!elevatorDispatched) {
-			mWaitingFloors.add(floor.getNumber());
+			mWaitingFloors.add(floor);
 		}
 //		System.out.println("\nDirection Requested " + direction + " Floor " + floor.getNumber() + " mWaitingFloors " + mWaitingFloors.toString() + "\n");
 

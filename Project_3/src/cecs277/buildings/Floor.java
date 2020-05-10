@@ -105,6 +105,14 @@ public class Floor implements ElevatorObserver {
 	public int getNumber() {
 		return mNumber;
 	}
+
+	public boolean getUpButtonPressed(){
+		return upButtonPressed;
+	}
+
+	public boolean getDownButtonPressed(){
+		return downButtonPressed;
+	}
 	
 	public List<Passenger> getWaitingPassengers() {
 		return mPassengers;
@@ -129,8 +137,8 @@ public class Floor implements ElevatorObserver {
 	public void elevatorDecelerating(Elevator elevator) {
 		// Done: if the elevator is arriving at THIS FLOOR, alert all the floor's observers that elevatorArriving.
 		if (elevator.getCurrentFloor() == this) {
-			for (FloorObserver floor : mObservers) {
-				floor.elevatorArriving(this, elevator);
+			for (FloorObserver o : mObservers) {
+				o.elevatorArriving(this, elevator);
 			}
 			// Done: then clear the elevator's current direction from this floor's requested direction buttons.
 			clearDirection(elevator.getCurrentDirection());

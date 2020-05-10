@@ -15,6 +15,7 @@ public class ElevatorStateEvent extends SimulationEvent {
 		mNewState = newState;
 		mElevator = elevator;
 	}
+
 	@Override
 	public void execute(Simulation sim) {
 		mElevator.setState(mNewState);
