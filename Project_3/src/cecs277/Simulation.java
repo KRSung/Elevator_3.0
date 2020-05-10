@@ -5,14 +5,11 @@ import cecs277.events.SimulationEvent;
 import cecs277.events.SpawnPassengerEvent;
 import cecs277.passengers.*;
 
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Simulation {
 	private int mTotal;
-	private List<PassengerFactory> mPassengerFactories;
+	private List<PassengerFactory> mPassengerFactories = new ArrayList<>();
 	private Random mRandom;
 	private PriorityQueue<SimulationEvent> mEvents = new PriorityQueue<>();
 	private long mCurrentTime;
