@@ -93,7 +93,7 @@ public class ActiveMode implements OperationMode {
 						elevator.scheduleStateChange(Elevator.ElevatorState.DOORS_OPENING, 2);
 					} else {
 						elevator.setCurrentDirection(Elevator.Direction.NOT_MOVING);
-						elevator.scheduleStateChange(Elevator.ElevatorState.IDLE_STATE, 2);
+						elevator.scheduleModeChange(new IdleMode(), Elevator.ElevatorState.IDLE_STATE, 2);
 					}
 				} else if (mCurrentDirection == Elevator.Direction.MOVING_UP) {
 //					if (mCurrentDirection != Direction.MOVING_UP){
@@ -129,7 +129,7 @@ public class ActiveMode implements OperationMode {
 //						scheduleStateChange(ElevatorState.DECELERATING, 2);
 //					}
 //					else
-					if (mRequestedFloors[mCurrentFloor.getNumber() - 1] ||
+					if (mRequestedFloors[mCurrentFloor.getNumber()] ||
 							mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_UP) ||
 							mCurrentFloor.getNumber() == mBuilding.getFloorCount()) {
 						elevator.scheduleStateChange(Elevator.ElevatorState.DECELERATING, 2);

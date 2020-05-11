@@ -23,16 +23,17 @@ public class SpawnPassengerEvent extends SimulationEvent {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "Adding " + mPassenger + "[-> " + mPassenger.getDestination() + "] to floor 1.";
+		return super.toString() + "Adding " + mPassenger.getName() + " " + mPassenger.getId() + " [-> " + mPassenger.getDestination() + "] to floor 1.";
 	}
 	
 	@Override
 	public void execute(Simulation sim) {
 		Iterable<PassengerFactory> factories = sim.getPassengerFactories();
 		int totalWeight = 0;
-		for(PassengerFactory f: factories){
+		for (PassengerFactory f : factories){
 			totalWeight += f.factoryWeight();
 		}
+
 		int num = 0;
 		int r = sim.getRandom().nextInt(totalWeight);
 		for(PassengerFactory f: factories){

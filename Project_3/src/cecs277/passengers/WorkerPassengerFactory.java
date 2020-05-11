@@ -61,7 +61,7 @@ public class WorkerPassengerFactory implements PassengerFactory {
             durations.add((long)(r.nextGaussian() * 180 + 600));
         }
 
-        return new MultipleDestinationTravel(floors, durations);
+        return new MultipleDestinationTravel(floors, durations, simulation);
     }
 
     @Override

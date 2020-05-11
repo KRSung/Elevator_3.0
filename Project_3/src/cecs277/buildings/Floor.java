@@ -4,6 +4,7 @@ import cecs277.elevators.Elevator;
 import cecs277.elevators.ElevatorObserver;
 import cecs277.passengers.Passenger;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,7 +138,8 @@ public class Floor implements ElevatorObserver {
 	public void elevatorDecelerating(Elevator elevator) {
 		// Done: if the elevator is arriving at THIS FLOOR, alert all the floor's observers that elevatorArriving.
 		if (elevator.getCurrentFloor() == this) {
-			for (FloorObserver o : mObservers) {
+			ArrayList<FloorObserver> temp = mObservers;
+			for (FloorObserver o : temp) {
 				o.elevatorArriving(this, elevator);
 			}
 			// Done: then clear the elevator's current direction from this floor's requested direction buttons.
