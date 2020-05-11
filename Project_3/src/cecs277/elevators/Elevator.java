@@ -73,7 +73,8 @@ public class Elevator implements FloorObserver {
 	}
 
 	protected void announceElevatorDecelerating(){
-		for(ElevatorObserver o : mObservers){
+		ArrayList<ElevatorObserver> temp = new ArrayList<>(mObservers);
+		for(ElevatorObserver o : temp){
 			o.elevatorDecelerating(this);
 		}
 	}

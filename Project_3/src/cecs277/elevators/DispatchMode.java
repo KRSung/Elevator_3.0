@@ -1,6 +1,11 @@
 package cecs277.elevators;
 
+import cecs277.Simulation;
+import cecs277.buildings.Building;
 import cecs277.buildings.Floor;
+import cecs277.passengers.EmbarkingStrategy;
+
+import java.util.ArrayList;
 
 /**
  * A DispatchMode elevator is in the midst of a dispatch to a target floor in order to handle a request in a target
@@ -12,7 +17,12 @@ public class DispatchMode implements OperationMode {
 	private Floor mDestination;
 	// The direction requested by the destination floor; NOT the direction the elevator must move to get to that floor.
 	private Elevator.Direction mDesiredDirection;
-	
+
+	private Floor mCurrentFloor;
+	private Building mBuilding;
+	private Elevator.Direction mCurrentDirection;
+	private Elevator.ElevatorState mCurrentState;
+
 	public DispatchMode(Floor destination, Elevator.Direction desiredDirection) {
 		mDestination = destination;
 		mDesiredDirection = desiredDirection;
@@ -47,6 +57,46 @@ public class DispatchMode implements OperationMode {
 
 	@Override
 	public void tick(Elevator elevator) {
+		mCurrentState = elevator.getCurrentState();
+		mCurrentDirection = elevator.getCurrentDirection();
+		mCurrentFloor = elevator.getCurrentFloor();
+		mBuilding = elevator.getBuilding();
 
+		switch (mCurrentState) {
+
+			case IDLE_STATE:
+				elevator.scheduleStateChange(Elevator.ElevatorState.ACCELERATING, 0);
+
+			case ACCELERATING:
+				elevator.getCurrentFloor().removeObserver(elevator);
+				elevator.scheduleStateChange(Elevator.ElevatorState.MOVING, 3);
+
+				return;
+
+			case MOVING:
+				mCurrentDirection = mDesiredDirection;
+				if (mCurrentDirection == Elevator.Direction.MOVING_UP ) {
+					elevator.setCurrentFloor(mBuilding.getFloor(mCurrentFloor.getNumber() + 1));
+				}
+				else {
+					elevator.setCurrentFloor(mBuilding.getFloor(mCurrentFloor.getNumber() - 1));
+				}
+				if (mCurrentFloor == mDestination){
+					elevator.scheduleStateChange(Elevator.ElevatorState.DECELERATING, 2);
+				}
+				else{
+					elevator.scheduleStateChange(Elevator.ElevatorState.MOVING, 2);
+				}
+				return;
+
+			case DECELERATING:
+
+				mCurrentFloor.elevatorDecelerating(elevator);
+				elevator.scheduleModeChange(new ActiveMode(), Elevator.ElevatorState.DOORS_OPENING, 3);
+				return;
+
+			default:
+				return;
+		}
 	}
 }

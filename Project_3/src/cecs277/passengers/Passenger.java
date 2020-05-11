@@ -42,6 +42,7 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 	
 	// A cute trick for assigning unique IDs to each object that is created. (See the constructor.)
 	private static int mNextId;
+
 	protected static int nextPassengerId() {
 		return ++mNextId;
 	}
@@ -56,6 +57,10 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 
 	public int getDestination(){
 		return mTravelStrategy.getDestination();
+	}
+
+	public void scheduleEvent(Floor floor){
+		this.mTravelStrategy.scheduleNextDestination(this, floor);
 	}
 
 	/**
@@ -107,12 +112,22 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 
 		if (mCurrentState == PassengerState.ON_ELEVATOR) {
 			if (mDebarkingStrategy.willLeaveElevator(this, elevator)) {
+				elevator.removePassenger(this);
+				elevator.removeObserver(this);
+				setState(PassengerState.BUSY);
 				mDebarkingStrategy.departedElevator(this, elevator);
 			}
 		}
 		else if (mCurrentState == PassengerState.WAITING_ON_FLOOR){
 			if (mBoardingStrategy.willBoardElevator(this, elevator)){
 				//TODO after adding the passenger to the elevator inform the embarking strategy so it can request floors
+				Floor currentFloor = elevator.getCurrentFloor();
+				currentFloor.removeWaitingPassenger(this);
+				currentFloor.removeObserver(this);
+				elevator.addPassenger(this);
+				elevator.addObserver(this);
+				setState(PassengerState.ON_ELEVATOR);
+				this.mEmbarkingStrategy.enteredElevator(this, elevator);
 			}
 		}
 

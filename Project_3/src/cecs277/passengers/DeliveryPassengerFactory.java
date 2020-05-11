@@ -58,7 +58,7 @@ public class DeliveryPassengerFactory implements PassengerFactory {
             durations.add((long)(r.nextGaussian() * 10 + 60));
         }
 
-        return new MultipleDestinationTravel(floors, durations);
+        return new MultipleDestinationTravel(floors, durations, simulation);
 
     }
 
