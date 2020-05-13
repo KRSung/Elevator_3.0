@@ -66,9 +66,8 @@ public class Elevator implements FloorObserver {
 	}
 
 	protected void scheduleModeChange(OperationMode operationMode, Elevator.ElevatorState state, long timeFromNow){
-		mCurrentState = state;
 		Simulation sim = mBuilding.getSimulation();
-		sim.scheduleEvent(new ElevatorModeEvent(timeFromNow + sim.currentTime(), operationMode,
+		sim.scheduleEvent(new ElevatorModeEvent(timeFromNow + sim.currentTime(), operationMode, state,
 				this));
 	}
 
