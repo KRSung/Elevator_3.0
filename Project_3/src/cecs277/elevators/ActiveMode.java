@@ -108,10 +108,12 @@ public class ActiveMode implements OperationMode {
 						elevator.scheduleStateChange(Elevator.ElevatorState.DOORS_OPENING, 2);
 					} else {
 						elevator.setCurrentDirection(Elevator.Direction.NOT_MOVING);
-						elevator.scheduleStateChange(Elevator.ElevatorState.IDLE_STATE, 2);
+						elevator.scheduleModeChange(new IdleMode(), Elevator.ElevatorState.IDLE_STATE, 2);
 					}
 				} else {
-					elevator.scheduleStateChange(Elevator.ElevatorState.IDLE_STATE, 2);
+//					elevator.scheduleStateChange(Elevator.ElevatorState.IDLE_STATE, 2);
+					elevator.scheduleModeChange(new IdleMode(), Elevator.ElevatorState.IDLE_STATE, 2);
+
 				}
 
 				return;
