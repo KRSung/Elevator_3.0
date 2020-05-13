@@ -9,6 +9,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
 public class Building implements ElevatorObserver, FloorObserver {
 	private List<Elevator> mElevators = new ArrayList<>();
@@ -63,26 +64,30 @@ public class Building implements ElevatorObserver, FloorObserver {
 				}
 			}
 
-			visualRepresentation.append(" ");
+			visualRepresentation.append( " [" +
+				mFloors.get(i - 1).getWaitingPassengers().stream()
+					.map(p -> p.getShortName() + p.getId() + "->" + p.getDestination())
+					.collect(Collectors.joining(", ")
+				)
+			);
 
-			for (Passenger p : mFloors.get(i - 1).getWaitingPassengers()) {
-				visualRepresentation.append(" ").append(p.getDestination());
-			}
-
-			visualRepresentation.append("\n");
+			visualRepresentation.append("]\n");
 		}
 
 		for (int i = 0; i < mElevators.size(); i++){
 			visualRepresentation.append(mElevators.get(i)).append("\n");
 		}
-//		System.out.println(visualRepresentation.toString());
 		return visualRepresentation.toString();
 	}
 	
 	public int getFloorCount() {
 		return mFloors.size();
 	}
-	
+
+
+	//FIXME index out of bounds for above and below
+	//FIXME ex) Index 11 out of bounds for length 11
+	//FIXME ex) index -1 out of bounds for length 23
 	public Floor getFloor(int floor) {
 		return mFloors.get(floor - 1);
 	}
