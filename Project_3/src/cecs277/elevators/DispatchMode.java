@@ -76,19 +76,18 @@ public class DispatchMode implements OperationMode {
 			case MOVING:
 				elevator.setCurrentDirection(mDesiredDirection);
 				mCurrentDirection = mDesiredDirection;
-				if (mCurrentDirection == Elevator.Direction.MOVING_UP ) {
-					elevator.setCurrentFloor(mBuilding.getFloor(mCurrentFloor.getNumber() + 1));
-				}
-				else {
-					elevator.setCurrentFloor(mBuilding.getFloor(mCurrentFloor.getNumber() - 1));
-				}
 				if (mCurrentFloor == mDestination){
 					elevator.scheduleStateChange(Elevator.ElevatorState.DECELERATING, 2);
 					return;
-				}
-				else{
+				} else {
+					if (mCurrentDirection == Elevator.Direction.MOVING_UP) {
+						elevator.setCurrentFloor(mBuilding.getFloor(mCurrentFloor.getNumber() + 1));
+					} else {
+						elevator.setCurrentFloor(mBuilding.getFloor(mCurrentFloor.getNumber() - 1));
+					}
 					elevator.scheduleStateChange(Elevator.ElevatorState.MOVING, 2);
 				}
+
 				return;
 
 			case DECELERATING:

@@ -113,7 +113,6 @@ public class ActiveMode implements OperationMode {
 				} else {
 //					elevator.scheduleStateChange(Elevator.ElevatorState.IDLE_STATE, 2);
 					elevator.scheduleModeChange(new IdleMode(), Elevator.ElevatorState.IDLE_STATE, 2);
-
 				}
 
 				return;

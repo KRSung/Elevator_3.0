@@ -6,17 +6,20 @@ import cecs277.elevators.OperationMode;
 
 public class ElevatorModeEvent extends SimulationEvent{
     private OperationMode mNewMode;
+    private Elevator.ElevatorState mNewState;
     private Elevator mElevator;
 
-    public ElevatorModeEvent(long scheduledTime, OperationMode newMode, Elevator elevator) {
+    public ElevatorModeEvent(long scheduledTime, OperationMode newMode, Elevator.ElevatorState newState, Elevator elevator) {
         super(scheduledTime);
         mNewMode = newMode;
         mElevator = elevator;
+        mNewState = newState;
     }
 
     @Override
     public void execute(Simulation sim) {
         mElevator.setOpMode(mNewMode);
+        mElevator.setState(mNewState);
         mElevator.tick();
     }
 
