@@ -14,7 +14,9 @@ public class DistractedDebarking implements DebarkingStrategy {
             return true;
         }
         else {
-            missed = true;
+            if (elevator.getCurrentFloor().getNumber() == passenger.getDestination()) {
+                missed = true;
+            }
             return false;
         }
     }

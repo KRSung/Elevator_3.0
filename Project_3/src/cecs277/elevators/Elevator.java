@@ -388,11 +388,17 @@ public class Elevator implements FloorObserver {
 	// Voodoo magic.
 	@Override
 	public String toString() {
-		return "Elevator " + mNumber + " - " + mCurrentFloor + " - " + mCurrentState + " - " + mCurrentDirection + " - "
-		 + "[" + mPassengers.stream()
+		return "Elevator " +  mNumber + " [" + mOperationMode + "] - " + mCurrentFloor + " - " + mCurrentState + " - " + mCurrentDirection + " - "
+		 + "[" +
+			mPassengers.stream()
+				.map(p -> p.getShortName() + p.getId())
+				.collect(Collectors.joining(", ")
+		) + "] {" +
+			mPassengers.stream()
 				.map(p -> Integer.toString(p.getDestination()))
-				.collect(Collectors.joining(", ")) + "]" ;
-		/*+ mPassengers.stream().map(p -> Integer.toString(p.getId())).collect(Collectors.joining(", ")) + "]"*/
+				.collect(Collectors.joining(", ")
+			)
+		+ "}";
 	}
 	
 }

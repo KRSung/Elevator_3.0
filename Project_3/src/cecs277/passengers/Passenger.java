@@ -55,6 +55,10 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 		return mName;
 	}
 
+	public String getShortName (){
+		return mShortName;
+	}
+
 	public int getDestination(){
 		return mTravelStrategy.getDestination();
 	}
@@ -125,7 +129,7 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 				currentFloor.removeWaitingPassenger(this);
 				currentFloor.removeObserver(this);
 				elevator.addPassenger(this);
-				elevator.addObserver(this);
+//				elevator.addObserver(this);
 				setState(PassengerState.ON_ELEVATOR);
 				this.mEmbarkingStrategy.enteredElevator(this, elevator);
 			}
