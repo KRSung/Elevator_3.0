@@ -72,8 +72,7 @@ public class DispatchMode implements OperationMode {
 		switch (mCurrentState) {
 
 			case IDLE_STATE:
-				mCurrentDirection = mDesiredDirection;
-				elevator.setCurrentDirection(mDesiredDirection);
+				elevator.setCurrentDirection(mCurrentDirection);
 				elevator.scheduleStateChange(Elevator.ElevatorState.ACCELERATING, 0);
 				return;
 
