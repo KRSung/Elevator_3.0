@@ -51,7 +51,7 @@ public class ActiveMode implements OperationMode {
 	@Override
 	public void tick(Elevator elevator) {
 		Simulation s = elevator.getBuilding().getSimulation();
-		int passengerChangeCount = 0;
+//		int passengerChangeCount = 0;
 		mCurrentState = elevator.getCurrentState();
 		mCurrentDirection = elevator.getCurrentDirection();
 		mRequestedFloors = elevator.getRequestedFloors();
@@ -72,12 +72,12 @@ public class ActiveMode implements OperationMode {
 				return;
 
 			case DOORS_OPEN:
-				passengerChangeCount = 0;
+//				passengerChangeCount = 0;
 				ArrayList<ElevatorObserver> temp = new ArrayList<>(mObservers);
 				for (ElevatorObserver o : temp) {
 					o.elevatorDoorsOpened(elevator);
 				}
-				elevator.scheduleStateChange(Elevator.ElevatorState.DOORS_CLOSING, (passengerChangeCount / 2) + 1);
+				elevator.scheduleStateChange(Elevator.ElevatorState.DOORS_CLOSING, (elevator.getPassengerChangeCount() / 2) + 1);
 //				System.out.printf("Waiting Passengers: ");
 //				for (Passenger p : getCurrentFloor().getWaitingPassengers())
 //					System.out.printf(" " + p.getDestination());

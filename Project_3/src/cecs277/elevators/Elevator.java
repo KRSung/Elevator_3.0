@@ -108,6 +108,7 @@ public class Elevator implements FloorObserver {
 	 */
 	public void tick() {
 		mOperationMode.tick(this);
+		passengerChangeCount = 0;
 
 //		// TODO: port the logic of your state changes from Project 1, accounting for the adjustments in the spec.
 //		// TODO: State changes are no longer immediate; they are scheduled using scheduleStateChange().
@@ -300,6 +301,10 @@ public class Elevator implements FloorObserver {
 	}
 	
 	// Simple accessors
+	public int getPassengerChangeCount(){
+		return passengerChangeCount;
+	}
+
 	public ArrayList<ElevatorObserver> getObservers() {
 		return mObservers;
 	}
