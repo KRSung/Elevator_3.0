@@ -334,6 +334,10 @@ public class Elevator implements FloorObserver {
 		}
 		return false;
 	}
+
+	public int getNumber() {
+		return mNumber;
+	}
 	
 	// All elevators have a capacity of 10, for now.
 	public int getCapacity() {
@@ -392,16 +396,23 @@ public class Elevator implements FloorObserver {
 	// Voodoo magic.
 	@Override
 	public String toString() {
+		String buttons = "";
+		for (int i = 0; i < mRequestedFloors.length; i++){
+			if (mRequestedFloors[i]){
+				buttons += i + 1 + ", ";
+			}
+		}
+		if (buttons.length() > 1){
+			buttons = buttons.substring(0, buttons.length() - 2);
+		}
+//		buttons = buttons.substring(0, buttons.length());
 		return "Elevator " +  mNumber + " [" + mOperationMode + "] - " + mCurrentFloor + " - " + mCurrentState + " - " + mCurrentDirection + " - "
 		 + "[" +
 			mPassengers.stream()
 				.map(p -> p.getShortName() + p.getId())
 				.collect(Collectors.joining(", ")
 		) + "] {" +
-			mPassengers.stream()
-				.map(p -> Integer.toString(p.getDestination()))
-				.collect(Collectors.joining(", ")
-			)
+			buttons
 		+ "}";
 	}
 	
