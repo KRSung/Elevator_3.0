@@ -3,7 +3,10 @@ package cecs277.elevators;
 import cecs277.Simulation;
 import cecs277.buildings.Building;
 import cecs277.buildings.Floor;
+import cecs277.buildings.FloorObserver;
+import cecs277.passengers.Passenger;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 
 /**
@@ -70,10 +73,8 @@ public class ActiveMode implements OperationMode {
 
 			case DOORS_OPEN:
 				passengerChangeCount = 0;
-//				for (int i = 0; i < mObservers.size(); i++){
 				ArrayList<ElevatorObserver> temp = new ArrayList<>(mObservers);
 				for (ElevatorObserver o : temp) {
-//					if (o instanceof WorkerPassenger && temp.size() + this.getPassengerCount() )
 					o.elevatorDoorsOpened(elevator);
 				}
 				elevator.scheduleStateChange(Elevator.ElevatorState.DOORS_CLOSING, (passengerChangeCount / 2) + 1);
@@ -137,7 +138,8 @@ public class ActiveMode implements OperationMode {
 					} else {
 						elevator.scheduleStateChange(Elevator.ElevatorState.MOVING, 2);
 					}
-				} else /*if (mCurrentDirection == Direction.MOVING_DOWN) */ {
+				} else{
+//					if (mCurrentDirection == Direction.MOVING_DOWN)  {
 //					if (mCurrentDirection != Direction.MOVING_DOWN){
 //						System.out.println("\n\n-----------------------------------------------------------------------------------\n\n");
 //						System.out.println("ERROR: Case moving: Expected Direction Moving Down, Received " + mCurrentDirection);
@@ -167,7 +169,6 @@ public class ActiveMode implements OperationMode {
 				if (mCurrentDirection == Elevator.Direction.MOVING_UP) {
 //					mCurrentFloor.clearDirection(Direction.MOVING_UP);
 					if (mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_UP) || hasRequestedFloorsUp()) {
-						System.out.printf("");
 					} else if (mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_DOWN)) {
 						elevator.setCurrentDirection(Elevator.Direction.MOVING_DOWN);
 					}
@@ -179,14 +180,14 @@ public class ActiveMode implements OperationMode {
 					else {
 						elevator.setCurrentDirection(Elevator.Direction.NOT_MOVING);
 					}
-				} else /*if (mCurrentDirection == Direction.MOVING_DOWN )*/ {
+				} else {
+//					if (mCurrentDirection == Direction.MOVING_DOWN ) {
 //					if (mCurrentDirection != Direction.MOVING_DOWN){
 //						System.out.println("\n\n-----------------------------------------------------------------------------------\n\n");
 //						System.out.println("ERROR: Case Decelerating: Expected Direction Moving Down, Received " + mCurrentDirection);
 //						System.out.println("\n\n-----------------------------------------------------------------------------------\n\n");
 //					}
 					if (mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_DOWN) || hasRequestedFloorsDown()) {
-						System.out.printf("");
 					} else if (mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_UP)) {
 						elevator.setCurrentDirection(Elevator.Direction.MOVING_UP);
 					}

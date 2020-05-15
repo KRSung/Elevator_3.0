@@ -122,9 +122,9 @@ public class Building implements ElevatorObserver, FloorObserver {
 	@Override
 	public void elevatorArriving(Floor sender, Elevator elevator) {
 		mWaitingFloors.removeIf(f -> f.getNumber() == sender.getNumber() &&
-				(elevator.getCurrentDirection() == Elevator.Direction.NOT_MOVING ||
-						(elevator.getCurrentDirection() == Elevator.Direction.MOVING_UP && f.getUpButtonPressed()) ||
-						(elevator.getCurrentDirection() == Elevator.Direction.MOVING_DOWN && f.getDownButtonPressed())));
+			(elevator.getCurrentDirection() == Elevator.Direction.NOT_MOVING ||
+			(elevator.getCurrentDirection() == Elevator.Direction.MOVING_UP && f.getUpButtonPressed()) ||
+			(elevator.getCurrentDirection() == Elevator.Direction.MOVING_DOWN && f.getDownButtonPressed())));
 	}
 	
 	@Override

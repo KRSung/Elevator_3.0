@@ -65,33 +65,42 @@ public class DispatchMode implements OperationMode {
 		switch (mCurrentState) {
 
 			case IDLE_STATE:
+				mCurrentDirection = mDesiredDirection;
+				elevator.setCurrentDirection(mDesiredDirection);
 				elevator.scheduleStateChange(Elevator.ElevatorState.ACCELERATING, 0);
+				return;
 
 			case ACCELERATING:
 				elevator.getCurrentFloor().removeObserver(elevator);
 				elevator.scheduleStateChange(Elevator.ElevatorState.MOVING, 3);
-
 				return;
 
 			case MOVING:
-				elevator.setCurrentDirection(mDesiredDirection);
-				mCurrentDirection = mDesiredDirection;
-				if (mCurrentFloor == mDestination){
-					elevator.scheduleStateChange(Elevator.ElevatorState.DECELERATING, 2);
-					return;
-				} else {
-					if (mCurrentDirection == Elevator.Direction.MOVING_UP) {
+//				System.out.println(mCurrentFloor + " JDFSL " + mDestination);
+//				if (mCurrentFloor == mDestination){
+//					System.out.println(mCurrentFloor + "     jkefjkdalf");
+//					elevator.scheduleStateChange(Elevator.ElevatorState.DECELERATING, 2);
+//				}
+//				else{
+					if (mCurrentDirection == Elevator.Direction.MOVING_UP ) {
 						elevator.setCurrentFloor(mBuilding.getFloor(mCurrentFloor.getNumber() + 1));
-					} else {
+					}
+					else {
 						elevator.setCurrentFloor(mBuilding.getFloor(mCurrentFloor.getNumber() - 1));
 					}
-					elevator.scheduleStateChange(Elevator.ElevatorState.MOVING, 2);
-				}
 
+					//TODO may not work for everthing
+					if ((mCurrentDirection == Elevator.Direction.MOVING_DOWN && (mCurrentFloor.getNumber() != mDestination.getNumber() + 1)) || (mCurrentDirection == Elevator.Direction.MOVING_UP && (mCurrentFloor.getNumber() != mDestination.getNumber() - 1))) {
+						elevator.scheduleStateChange(Elevator.ElevatorState.MOVING, 2);
+					}
+					else {
+						elevator.scheduleStateChange(Elevator.ElevatorState.DECELERATING, 2);
+					}
+//				}
+//				System.out.println(elevator.getCurrentFloor());
 				return;
 
 			case DECELERATING:
-
 				mCurrentFloor.elevatorDecelerating(elevator);
 				elevator.scheduleModeChange(new ActiveMode(), Elevator.ElevatorState.DOORS_OPENING, 3);
 				return;
