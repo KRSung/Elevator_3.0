@@ -127,13 +127,20 @@ public class ActiveMode implements OperationMode {
 			case MOVING:
 				if (mCurrentDirection == Elevator.Direction.MOVING_UP) {
 					elevator.setCurrentFloor(mBuilding.getFloor(mCurrentFloor.getNumber() + 1));
+//					System.out.println(mCurrentFloor);
+//					System.out.println(mCurrentFloor.getUpButtonPressed());
+//					System.out.println(mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_UP));
 //					if (mCurrentFloor.getNumber() == mBuilding.getFloorCount() - 1) {
 //						scheduleStateChange(ElevatorState.DECELERATING, 2);
 //					}
 //					else
 					if (mRequestedFloors[mCurrentFloor.getNumber()] ||
-							mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_UP) ||
+							mBuilding.getFloor(mCurrentFloor.getNumber() + 1).directionIsPressed(Elevator.Direction.MOVING_UP) ||
 							mCurrentFloor.getNumber() == mBuilding.getFloorCount()) {
+						System.out.println(mRequestedFloors[mCurrentFloor.getNumber()]);
+						System.out.println(mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_UP));
+//						System.out.println(mCurrentFloor);
+						System.out.println(mCurrentFloor.getNumber() + " " + mBuilding.getFloorCount());
 						elevator.scheduleStateChange(Elevator.ElevatorState.DECELERATING, 2);
 					} else {
 						elevator.scheduleStateChange(Elevator.ElevatorState.MOVING, 2);
@@ -154,6 +161,7 @@ public class ActiveMode implements OperationMode {
 //						scheduleStateChange(ElevatorState.DECELERATING, 2);
 //					}
 //					else
+					//TODO might not work for second condition in if
 					if (mRequestedFloors[mCurrentFloor.getNumber() - 1] ||
 							mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_DOWN) ||
 							mCurrentFloor.getNumber() == 1) {
