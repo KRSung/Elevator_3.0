@@ -7,10 +7,17 @@ import cecs277.events.PassengerNextDestinationEvent;
 public class DistractedDebarking implements DebarkingStrategy {
 
     boolean missed = false;
+    boolean debarked = false;
 
     @Override
     public boolean willLeaveElevator(Passenger passenger, Elevator elevator) {
-        if (missed && passenger.getDestination() == elevator.getCurrentFloor().getNumber()){
+        if (missed && !debarked){
+            System.out.println(passenger.getName() + " " + passenger.getId() +
+                    " got of the elevator " + elevator.getNumber() + " on the wrong floor!");
+            debarked = true;
+            return true;
+        }
+        else if (passenger.getDestination() == elevator.getCurrentFloor().getNumber() && debarked){
             return true;
         }
         else {
@@ -29,6 +36,7 @@ public class DistractedDebarking implements DebarkingStrategy {
             passenger.scheduleEvent(elevator.getCurrentFloor());
         }
         else if (elevator.getCurrentFloor().getNumber() == passenger.getDestination()){
+            System.out.println(passenger + " finally debarked at their destination " + passenger.getDestination());
             //TODO schedule next desination event
             passenger.scheduleEvent(elevator.getCurrentFloor());
         }
