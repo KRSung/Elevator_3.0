@@ -137,10 +137,10 @@ public class ActiveMode implements OperationMode {
 					if (mRequestedFloors[mCurrentFloor.getNumber()] ||
 							mBuilding.getFloor(mCurrentFloor.getNumber() + 1).directionIsPressed(Elevator.Direction.MOVING_UP) ||
 							mCurrentFloor.getNumber() == mBuilding.getFloorCount()) {
-						System.out.println(mRequestedFloors[mCurrentFloor.getNumber()]);
-						System.out.println(mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_UP));
+//						System.out.println(mRequestedFloors[mCurrentFloor.getNumber()]);
+//						System.out.println(mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_UP));
 //						System.out.println(mCurrentFloor);
-						System.out.println(mCurrentFloor.getNumber() + " " + mBuilding.getFloorCount());
+//						System.out.println(mCurrentFloor.getNumber() + " " + mBuilding.getFloorCount());
 						elevator.scheduleStateChange(Elevator.ElevatorState.DECELERATING, 2);
 					} else {
 						elevator.scheduleStateChange(Elevator.ElevatorState.MOVING, 2);

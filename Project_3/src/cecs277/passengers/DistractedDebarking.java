@@ -13,8 +13,6 @@ public class DistractedDebarking implements DebarkingStrategy {
     @Override
     public boolean willLeaveElevator(Passenger passenger, Elevator elevator) {
         if (missed && !debarked){
-            System.out.println(passenger.getName() + " " + passenger.getId() +
-                    " got of the elevator " + elevator.getNumber() + " on the wrong floor!");
             debarked = true;
             return true;
         }
@@ -37,12 +35,14 @@ public class DistractedDebarking implements DebarkingStrategy {
             passenger.scheduleEvent(elevator.getCurrentFloor());
         }
         else if (elevator.getCurrentFloor().getNumber() == passenger.getDestination()){
-            System.out.println(passenger + " finally debarked at their destination " + passenger.getDestination());
+            System.out.println(passenger.getName() + " " + passenger.getId() + " finally debarked at their destination " + passenger.getDestination());
             //TODO schedule next desination event
             passenger.scheduleEvent(elevator.getCurrentFloor());
         }
         else {
             //TODO schedule pasenger to reapear on current floor in 5 sec
+            System.out.println(passenger.getName() + " " + passenger.getId() +
+                    " got of the elevator " + elevator.getNumber() + " on the wrong floor!");
             PassengerNextDestinationEvent ev = new PassengerNextDestinationEvent(s.currentTime() + 5, passenger, elevator.getCurrentFloor());
             s.scheduleEvent(ev);
         }

@@ -12,6 +12,14 @@ public class ThresholdBoarding implements BoardingStrategy {
 
     @Override
     public boolean willBoardElevator(Passenger passenger, Elevator elevator) {
-        return mThreshold > elevator.getPassengerCount();
+        if (mThreshold > elevator.getPassengerCount()){
+            return true;
+        }
+        else {
+            System.out.println(passenger.getName() + " " + passenger.getId() +
+                    " won't board elevator " + elevator.getNumber() + " on floor " +
+                    elevator.getCurrentFloor() + " because it is above their threshold of " + mThreshold);
+            return false;
+        }
     }
 }

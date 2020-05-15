@@ -9,6 +9,12 @@ import cecs277.elevators.Elevator;
 public class CapacityBoarding implements BoardingStrategy {
 	@Override
 	public boolean willBoardElevator(Passenger passenger, Elevator elevator) {
-		return elevator.getPassengerCount() < elevator.getCapacity();
+		if (elevator.getPassengerCount() < elevator.getCapacity()){
+			return true;
+		}
+		else{
+			System.out.println(passenger.getName() + " " + passenger.getId() + " won't board elevator " + elevator.getNumber() + " because it is full.");
+			return false;
+		}
 	}
 }

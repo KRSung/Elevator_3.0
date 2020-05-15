@@ -8,12 +8,14 @@ public class ClumsyEmbarking implements EmbarkingStrategy{
         if (elevator.getCurrentDirection() == Elevator.Direction.MOVING_DOWN || elevator.getCurrentFloor().getNumber() > passenger.getDestination()){
             elevator.requestFloor(passenger.getDestination());
             elevator.requestFloor(passenger.getDestination() + 1);
+            System.out.println(passenger.getName() + " " + passenger.getId() + " clumsily requested floors " +
+                    passenger.getDestination() + " and " + (passenger.getDestination() + 1) + " on elevator " + elevator.getNumber());
         }
         else if (elevator.getCurrentDirection() == Elevator.Direction.MOVING_UP || elevator.getCurrentFloor().getNumber() < passenger.getDestination()){
             elevator.requestFloor(passenger.getDestination());
             elevator.requestFloor(passenger.getDestination() - 1);
-            System.out.println(passenger.getName() + " " + passenger + " clumsily requested floors " +
-                    passenger.getDestination() + " and " + (passenger.getDestination() - 1));
+            System.out.println(passenger.getName() + " " + passenger.getId() + " clumsily requested floors " +
+                    passenger.getDestination() + " and " + (passenger.getDestination() - 1) + " on elevator " + elevator.getNumber());
         }
     }
 }

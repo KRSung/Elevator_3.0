@@ -10,9 +10,9 @@ public class ConfusedDebarking implements DebarkingStrategy {
 
     @Override
     public void departedElevator(Passenger passenger, Elevator elevator) {
-        //TODO leaves the building
         if (elevator.getCurrentFloor().getNumber() == 1){
             //TODO leaves the building
+            System.out.println(passenger.getName() + " " + passenger.getId() + " is confused and left the building after debarking elevator " + elevator.getNumber());
             passenger.scheduleEvent(elevator.getCurrentFloor());
         }
     }
