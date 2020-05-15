@@ -26,6 +26,7 @@ public class DispatchMode implements OperationMode {
 	public DispatchMode(Floor destination, Elevator.Direction desiredDirection) {
 		mDestination = destination;
 		mDesiredDirection = desiredDirection;
+
 	}
 	
 	// TODO: implement the other methods of the OperationMode interface.
@@ -57,8 +58,14 @@ public class DispatchMode implements OperationMode {
 
 	@Override
 	public void tick(Elevator elevator) {
+		mCurrentFloor = elevator.getCurrentFloor();
+		if (mDestination.getNumber() > mCurrentFloor.getNumber()){
+			mCurrentDirection = Elevator.Direction.MOVING_UP;
+		}
+		else{
+			mCurrentDirection = Elevator.Direction.MOVING_DOWN;
+		}
 		mCurrentState = elevator.getCurrentState();
-		mCurrentDirection = elevator.getCurrentDirection();
 		mCurrentFloor = elevator.getCurrentFloor();
 		mBuilding = elevator.getBuilding();
 
