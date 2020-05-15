@@ -108,6 +108,7 @@ public class DispatchMode implements OperationMode {
 
 			case DECELERATING:
 				mCurrentFloor.elevatorDecelerating(elevator);
+				elevator.setCurrentDirection(mDesiredDirection);
 				elevator.scheduleModeChange(new ActiveMode(), Elevator.ElevatorState.DOORS_OPENING, 3);
 				return;
 
