@@ -1,3 +1,4 @@
+
 package cecs277.passengers;
 
 import cecs277.Simulation;
@@ -10,7 +11,7 @@ public class DistractedDebarking implements DebarkingStrategy {
 
     @Override
     public boolean willLeaveElevator(Passenger passenger, Elevator elevator) {
-        if (missed){
+        if (missed && passenger.getDestination() == elevator.getCurrentFloor().getNumber()){
             return true;
         }
         else {
@@ -24,7 +25,7 @@ public class DistractedDebarking implements DebarkingStrategy {
     @Override
     public void departedElevator(Passenger passenger, Elevator elevator) {
         Simulation s = elevator.getBuilding().getSimulation();
-        if (elevator.getCurrentFloor().getNumber() == 1){
+        if (elevator.getCurrentFloor().getNumber() == 1 && passenger.getDestination() == 1){
             //TODO leaves building
             passenger.scheduleEvent(elevator.getCurrentFloor());
         }
