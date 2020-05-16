@@ -12,7 +12,7 @@ public class AwkwardBoarding implements BoardingStrategy {
 
     @Override
     public boolean willBoardElevator(Passenger passenger, Elevator elevator) {
-        if (mThreshold > elevator.getPassengerCount()){
+        if (mThreshold > elevator.getPassengerCount() && elevator.getPassengerCount() < elevator.getCapacity()){
             return true;
         }
         else {

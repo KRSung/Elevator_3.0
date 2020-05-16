@@ -98,7 +98,9 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 		}
 		// This else should not happen if your code is correct. Do not remove this branch; it reveals errors in your code.
 		else {
-			throw new RuntimeException("Passenger " + toString() + " is observing Floor " + floor.getNumber() + " but they are " +
+			System.out.println(floor.getWaitingPassengers());
+			System.out.println(mCurrentState);
+			throw new RuntimeException(this.getName() + " " + this.getId() + " is observing Floor " + floor.getNumber() + " but they are " +
 			 "not waiting on that floor.");
 		}
 	}
@@ -118,6 +120,7 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 			if (mDebarkingStrategy.willLeaveElevator(this, elevator)) {
 				elevator.removePassenger(this);
 				elevator.removeObserver(this);
+//				System.out.println(elevator.getObservers().toString());
 				setState(PassengerState.BUSY);
 				mDebarkingStrategy.departedElevator(this, elevator);
 			}
@@ -190,6 +193,7 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 	@Override
 	public String toString() {
 		return Integer.toString(getDestination());
+//		return getName() + " " + getId();
 	}
 	
 	@Override

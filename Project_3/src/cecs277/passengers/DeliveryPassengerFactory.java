@@ -47,11 +47,10 @@ public class DeliveryPassengerFactory implements PassengerFactory {
 
         for (int i = 0; i < destinations; i++){
             destination = r.nextInt(building.getFloorCount() - 1) + 2;
-            while(destination == last){
+            while(floors.contains(destination)){
                 destination = r.nextInt(building.getFloorCount() - 1) + 2;
             }
             floors.add(destination);
-            last = destination;
         }
 
         for (int i = 0; i < destinations; i++){

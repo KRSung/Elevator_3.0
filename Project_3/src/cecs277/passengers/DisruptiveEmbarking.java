@@ -16,5 +16,8 @@ public class DisruptiveEmbarking implements EmbarkingStrategy {
             }
             System.out.println(passenger.getName() + " " + passenger.getId() + " is being disruptive and requested floor " + passenger.getDestination() + " and everything above it on elevator " + elevator.getNumber() + ".");
         }
+        if (elevator.getRequestedFloors()[elevator.getCurrentFloor().getNumber() - 1] == true){
+            elevator.getRequestedFloors()[elevator.getCurrentFloor().getNumber() - 1] = false;
+        }
     }
 }
