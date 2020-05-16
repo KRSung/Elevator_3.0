@@ -36,7 +36,7 @@ public class DistractedDebarking implements DebarkingStrategy {
             passenger.scheduleEvent(elevator.getCurrentFloor());
         }
         else if (elevator.getCurrentFloor().getNumber() == passenger.getDestination()){
-            System.out.println(passenger.getName() + " " + passenger.getId() + " finally debarked at their destination " + passenger.getDestination());
+            System.out.println(passenger.getName() + " " + passenger.getId() + " finally debarked at their destination floor " + passenger.getDestination());
             //TODO schedule next desination event
             passenger.scheduleEvent(elevator.getCurrentFloor());
         }

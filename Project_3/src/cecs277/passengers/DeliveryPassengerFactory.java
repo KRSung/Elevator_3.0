@@ -17,7 +17,7 @@ public class DeliveryPassengerFactory implements PassengerFactory {
 
     @Override
     public String factoryName() {
-        return "Delivery";
+        return "Delivery Person";
     }
 
     @Override

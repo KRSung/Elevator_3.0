@@ -15,7 +15,7 @@ public class Building implements ElevatorObserver, FloorObserver {
 	private List<Elevator> mElevators = new ArrayList<>();
 	private List<Floor> mFloors = new ArrayList<>();
 	private Simulation mSimulation;
-	private Queue<Floor> mWaitingFloors = new ArrayDeque<>();
+	private Queue<FloorRequest> mWaitingFloors = new ArrayDeque<>();
 	
 	public Building(int floors, int elevatorCount, Simulation sim) {
 		mSimulation = sim;
@@ -35,6 +35,16 @@ public class Building implements ElevatorObserver, FloorObserver {
 				elevator.addObserver(f);
 			}
 			mElevators.add(elevator);
+		}
+	}
+
+	private class FloorRequest {
+		private Floor mDestination;
+		private Elevator.Direction mDirection;
+
+		private FloorRequest(Floor destination, Elevator.Direction direction) {
+			mDestination = destination;
+			mDirection = direction;
 		}
 	}
 	
@@ -125,16 +135,15 @@ public class Building implements ElevatorObserver, FloorObserver {
 		// DONE: if mWaitingFloors is not empty, remove the first entry from the queue and dispatch the elevator to that floor.
 		//added the !
 		if (!mWaitingFloors.isEmpty()){
-			elevator.dispatchToFloor(mWaitingFloors.remove());
+			elevator.dispatchToFloor(mWaitingFloors.remove().mDestination);
 		}
 	}
 	
 	@Override
 	public void elevatorArriving(Floor sender, Elevator elevator) {
-		mWaitingFloors.removeIf(f -> f.getNumber() == sender.getNumber() &&
-			(elevator.getCurrentDirection() == Elevator.Direction.NOT_MOVING ||
-			(elevator.getCurrentDirection() == Elevator.Direction.MOVING_UP && f.getUpButtonPressed()) ||
-			(elevator.getCurrentDirection() == Elevator.Direction.MOVING_DOWN && f.getDownButtonPressed())));
+		mWaitingFloors.removeIf(f -> f.mDestination.getNumber() == sender.getNumber() &&
+				(elevator.getCurrentDirection() == Elevator.Direction.NOT_MOVING ||
+						elevator.getCurrentDirection() == f.mDirection));
 	}
 	
 	@Override
@@ -152,7 +161,7 @@ public class Building implements ElevatorObserver, FloorObserver {
 		}
 
 		if (!elevatorDispatched) {
-			mWaitingFloors.add(floor);
+			mWaitingFloors.add(new FloorRequest(floor, direction));
 		}
 //		System.out.println("\nDirection Requested " + direction + " Floor " + floor.getNumber() + " mWaitingFloors " + mWaitingFloors.toString() + "\n");
 

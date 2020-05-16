@@ -18,6 +18,7 @@ public class AwkwardBoarding implements BoardingStrategy {
         else {
             mThreshold += 2;
             System.out.println(passenger.getName() + " " + passenger.getId() + " was too awkward to board the elevator on floor " + elevator.getCurrentFloor().getNumber() + ", now has threshold " + mThreshold);
+            elevator.getCurrentFloor().requestDirection(elevator.getCurrentDirection());
             return false;
         }
     }

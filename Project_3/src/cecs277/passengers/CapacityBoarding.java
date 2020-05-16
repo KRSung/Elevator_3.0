@@ -14,6 +14,7 @@ public class CapacityBoarding implements BoardingStrategy {
 		}
 		else{
 			System.out.println(passenger.getName() + " " + passenger.getId() + " won't board elevator " + elevator.getNumber() + " because it is full.");
+			elevator.getCurrentFloor().requestDirection(elevator.getCurrentDirection());
 			return false;
 		}
 	}
