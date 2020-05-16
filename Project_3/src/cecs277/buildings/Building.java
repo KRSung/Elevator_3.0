@@ -64,14 +64,24 @@ public class Building implements ElevatorObserver, FloorObserver {
 				}
 			}
 
-			visualRepresentation.append( " [" +
+			if (mFloors.get(i - 1).getDownButtonPressed() && mFloors.get(i - 1).getUpButtonPressed()){
+				visualRepresentation.append(" \u2195\uFE0F");
+			}
+			else if (mFloors.get(i - 1).getDownButtonPressed()){
+				visualRepresentation.append(" \u2B07\uFE0F");
+			}
+			else if (mFloors.get(i - 1).getUpButtonPressed()){
+				visualRepresentation.append(" \u2B06\uFE0F");
+			}
+
+			visualRepresentation.append( " " +
 				mFloors.get(i - 1).getWaitingPassengers().stream()
 					.map(p -> p.getShortName() + p.getId() + "->" + p.getDestination())
 					.collect(Collectors.joining(", ")
 				)
 			);
 
-			visualRepresentation.append("]\n");
+			visualRepresentation.append("\n");
 		}
 
 		for (int i = 0; i < mElevators.size(); i++){
