@@ -13,11 +13,11 @@ import java.util.ArrayList;
  * request until it arrives at the destination.
  */
 public class DispatchMode implements OperationMode {
+	public static boolean canBeDisabled = true;
 	// The destination floor of the dispatch.
 	private Floor mDestination;
 	// The direction requested by the destination floor; NOT the direction the elevator must move to get to that floor.
 	private Elevator.Direction mDesiredDirection;
-
 	private Floor mCurrentFloor;
 	private Building mBuilding;
 	private Elevator.Direction mCurrentDirection;
@@ -26,7 +26,6 @@ public class DispatchMode implements OperationMode {
 	public DispatchMode(Floor destination, Elevator.Direction desiredDirection) {
 		mDestination = destination;
 		mDesiredDirection = desiredDirection;
-
 	}
 	
 	// TODO: implement the other methods of the OperationMode interface.
@@ -72,8 +71,14 @@ public class DispatchMode implements OperationMode {
 		switch (mCurrentState) {
 
 			case IDLE_STATE:
-				elevator.setCurrentDirection(mCurrentDirection);
-				elevator.scheduleStateChange(Elevator.ElevatorState.ACCELERATING, 0);
+				if (canBeDisabled && mDestination.getNumber() != 1) {
+					canBeDisabled = false;
+					elevator.disable(this);
+				}
+				else{
+					elevator.setCurrentDirection(mCurrentDirection);
+					elevator.scheduleStateChange(Elevator.ElevatorState.ACCELERATING, 0);
+				}
 				return;
 
 			case ACCELERATING:

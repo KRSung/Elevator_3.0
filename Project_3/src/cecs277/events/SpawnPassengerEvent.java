@@ -5,6 +5,8 @@ import cecs277.buildings.Building;
 import cecs277.passengers.Passenger;
 import cecs277.passengers.PassengerFactory;
 
+import java.util.stream.StreamSupport;
+
 /**
  * A simulation event that adds a new random passenger on floor 1, and then schedules the next spawn event.
  */
@@ -29,10 +31,10 @@ public class SpawnPassengerEvent extends SimulationEvent {
 	@Override
 	public void execute(Simulation sim) {
 		Iterable<PassengerFactory> factories = sim.getPassengerFactories();
-		int totalWeight = 0;
-		for (PassengerFactory f : factories){
-			totalWeight += f.factoryWeight();
-		}
+		int totalWeight = StreamSupport.stream(factories.spliterator(), false).mapToInt(f -> f.factoryWeight()).sum();
+//		for (PassengerFactory f : factories){
+//			totalWeight += f.factoryWeight();
+//		}
 
 		int num = 0;
 		int r = sim.getRandom().nextInt(totalWeight);

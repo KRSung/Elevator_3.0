@@ -11,6 +11,7 @@ import java.util.List;
 public class Floor implements ElevatorObserver {
 	private Building mBuilding;
 	private List<Passenger> mPassengers = new ArrayList<>();
+	private List<Passenger> mPassengersQueue = new ArrayList<>();
 	private ArrayList<FloorObserver> mObservers = new ArrayList<>();
 	private int mNumber;
 	
@@ -23,8 +24,11 @@ public class Floor implements ElevatorObserver {
 		mNumber = number;
 		mBuilding = building;
 	}
-	
-	
+
+	public List<Passenger> getPassengersQueue() {
+		return mPassengersQueue;
+	}
+
 	/**
 	 * Sets a flag that the given direction has been requested by a passenger on this floor. If the direction
 	 * had NOT already been requested, then all observers of the floor are notified that directionRequested.
@@ -50,6 +54,11 @@ public class Floor implements ElevatorObserver {
 		}
 
 		// Done: implement this method as described in the comment.
+	}
+
+	public void sendFrontToBack(Passenger p){
+		mPassengersQueue.remove(p);
+		mPassengersQueue.add(p);
 	}
 	
 	/**
@@ -82,6 +91,7 @@ public class Floor implements ElevatorObserver {
 	 */
 	public void addWaitingPassenger(Passenger p) {
 		mPassengers.add(p);
+		mPassengersQueue.add(p);
 		addObserver(p);
 		p.setState(Passenger.PassengerState.WAITING_ON_FLOOR);
 		int pDestination = p.getDestination();
