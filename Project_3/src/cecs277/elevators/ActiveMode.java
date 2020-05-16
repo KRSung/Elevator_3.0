@@ -121,24 +121,16 @@ public class ActiveMode implements OperationMode {
 			case ACCELERATING:
 				elevator.getCurrentFloor().removeObserver(elevator);
 				elevator.scheduleStateChange(Elevator.ElevatorState.MOVING, 3);
-
 				return;
 
 			case MOVING:
 				if (mCurrentDirection == Elevator.Direction.MOVING_UP) {
 					elevator.setCurrentFloor(mBuilding.getFloor(mCurrentFloor.getNumber() + 1));
-//					System.out.println(mCurrentFloor);
-//					System.out.println(mCurrentFloor.getUpButtonPressed());
-//					System.out.println(mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_UP));
-//					if (mCurrentFloor.getNumber() == mBuilding.getFloorCount() - 1) {
-//						scheduleStateChange(ElevatorState.DECELERATING, 2);
-//					}
-//					else
 					if (mRequestedFloors[mCurrentFloor.getNumber()] ||
 							mBuilding.getFloor(mCurrentFloor.getNumber() + 1).directionIsPressed(Elevator.Direction.MOVING_UP) ||
 							mCurrentFloor.getNumber() == mBuilding.getFloorCount()) {
 //						System.out.println(mRequestedFloors[mCurrentFloor.getNumber()]);
-//						System.out.println(mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_UP));
+//						System.out.println(mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_DOWN));
 //						System.out.println(mCurrentFloor);
 //						System.out.println(mCurrentFloor.getNumber() + " " + mBuilding.getFloorCount());
 						elevator.scheduleStateChange(Elevator.ElevatorState.DECELERATING, 2);
@@ -146,27 +138,27 @@ public class ActiveMode implements OperationMode {
 						elevator.scheduleStateChange(Elevator.ElevatorState.MOVING, 2);
 					}
 				} else{
-//					if (mCurrentDirection == Direction.MOVING_DOWN)  {
-//					if (mCurrentDirection != Direction.MOVING_DOWN){
-//						System.out.println("\n\n-----------------------------------------------------------------------------------\n\n");
-//						System.out.println("ERROR: Case moving: Expected Direction Moving Down, Received " + mCurrentDirection);
-//						System.out.println("\n\n-----------------------------------------------------------------------------------\n\n");
+//					for (int i = 0; i < mRequestedFloors.length; i++){
+//						System.out.println(i + " " + mRequestedFloors[i]);
 //					}
-//					if (mCurrentFloor.getNumber() == 1) {
-//					scheduleStateChange(ElevatorState.DECELERATING, 2);
-//					return;
-//					}
+//					System.out.println(mCurrentFloor);
 					elevator.setCurrentFloor(mBuilding.getFloor(mCurrentFloor.getNumber() - 1));
-//					if (mCurrentFloor.getNumber() == 1) {
-//						scheduleStateChange(ElevatorState.DECELERATING, 2);
-//					}
-//					else
 					//TODO might not work for second condition in if
-					if (mRequestedFloors[mCurrentFloor.getNumber() - 1] ||
-							mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_DOWN) ||
+					if (mRequestedFloors[mCurrentFloor.getNumber() - 2] ||
+							mBuilding.getFloor(mCurrentFloor.getNumber() - 1).directionIsPressed(Elevator.Direction.MOVING_DOWN) ||
+//							mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_DOWN) ||
 							mCurrentFloor.getNumber() == 1) {
+//						System.out.println(mRequestedFloors[mCurrentFloor.getNumber()]);
+//						System.out.println(mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_DOWN));
+////						System.out.println(mCurrentFloor);
+//						System.out.println(mCurrentFloor.getNumber() + " " + mBuilding.getFloorCount());
 						elevator.scheduleStateChange(Elevator.ElevatorState.DECELERATING, 2);
 					} else {
+//						System.out.println(mRequestedFloors[mCurrentFloor.getNumber()]);
+//						System.out.println(mCurrentFloor.directionIsPressed(Elevator.Direction.MOVING_DOWN));
+////						System.out.println(mCurrentFloor);
+//						System.out.println(mCurrentFloor.getNumber() + " " + mBuilding.getFloorCount());
+//						System.out.println("MOVING");
 						elevator.scheduleStateChange(Elevator.ElevatorState.MOVING, 2);
 					}
 				}
