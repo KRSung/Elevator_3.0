@@ -21,6 +21,7 @@ public class DistractedDebarking implements DebarkingStrategy {
         }
         else {
             if (elevator.getCurrentFloor().getNumber() == passenger.getDestination()) {
+                System.out.println(passenger.getName() + " " + passenger.getId() + " is distracted and missed their stop on floor " + elevator.getCurrentFloor().getNumber());
                 missed = true;
             }
             return false;

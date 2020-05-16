@@ -17,6 +17,7 @@ public class AttentiveDebarking implements DebarkingStrategy {
             passenger.scheduleEvent(elevator.getCurrentFloor());
         }
         else if (elevator.getCurrentFloor().getNumber() == passenger.getDestination()){
+            System.out.println(passenger.getName() + " " + passenger.getId() + " debarked at their destination floor " + elevator.getCurrentFloor().getNumber());
             passenger.scheduleEvent(elevator.getCurrentFloor());
         }
     }

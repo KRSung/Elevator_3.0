@@ -120,7 +120,9 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 			if (mDebarkingStrategy.willLeaveElevator(this, elevator)) {
 				elevator.removePassenger(this);
 				elevator.removeObserver(this);
+//				System.out.println();
 //				System.out.println(elevator.getObservers().toString());
+//				System.out.println();
 				setState(PassengerState.BUSY);
 				mDebarkingStrategy.departedElevator(this, elevator);
 			}
@@ -135,6 +137,9 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 //				elevator.addObserver(this);
 				setState(PassengerState.ON_ELEVATOR);
 				this.mEmbarkingStrategy.enteredElevator(this, elevator);
+			}
+			else {
+				elevator.removeObserver(this);
 			}
 		}
 
@@ -192,8 +197,8 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 	// This will be overridden by derived types.
 	@Override
 	public String toString() {
-		return Integer.toString(getDestination());
-//		return getName() + " " + getId();
+//		return Integer.toString(getDestination());
+		return getName() + " " + getId();
 	}
 	
 	@Override
