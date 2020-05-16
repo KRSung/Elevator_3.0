@@ -296,7 +296,7 @@ public class Elevator implements FloorObserver {
 			mOperationMode.dispatchToFloor(this, floor, Direction.MOVING_UP);
 		}
 		else {
-			mOperationMode.dispatchToFloor(this, floor, Direction.MOVING_UP);
+			mOperationMode.dispatchToFloor(this, floor, Direction.MOVING_DOWN);
 		}
 	}
 	
