@@ -28,9 +28,7 @@ public class MultipleDestinationTravel implements TravelStrategy {
 
     @Override
     public void scheduleNextDestination(Passenger passenger, Floor currentFloor) {
-        if (currentFloor.getNumber() == 1){
-            System.out.println(passenger.getName() + passenger.getId() + " is leaving the building.");
-        } else {
+        if (currentFloor.getNumber() != 1){
             PassengerNextDestinationEvent ev = new PassengerNextDestinationEvent(mSimulation.currentTime() + mDurations.remove(0), passenger, currentFloor);
             mDestinations.remove(0);
             mSimulation.scheduleEvent(ev);
