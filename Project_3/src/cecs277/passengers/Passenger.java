@@ -93,12 +93,21 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 					((elevator.getCurrentDirection() == Elevator.Direction.MOVING_DOWN) &&
 							(getDestination() < elevator.getCurrentFloor().getNumber()))){
 				elevator.addObserver(this);
+			} else {
+				elevator.removeObserver(this);
 			}
 
 		}
 		// This else should not happen if your code is correct. Do not remove this branch; it reveals errors in your code.
 		else {
+			System.out.println();
+			System.out.println();
+			for (Elevator e : elevator.getBuilding().getElevators()){
+				System.out.println(e.getObservers());
+				System.out.println();
+			}
 			System.out.println(floor.getWaitingPassengers());
+			System.out.println(floor);
 			System.out.println(mCurrentState);
 			throw new RuntimeException(this.getName() + " " + this.getId() + " is observing Floor " + floor.getNumber() + " but they are " +
 			 "not waiting on that floor.");
@@ -133,8 +142,11 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 				Floor currentFloor = elevator.getCurrentFloor();
 				currentFloor.removeWaitingPassenger(this);
 				currentFloor.removeObserver(this);
+				for (Elevator e : elevator.getBuilding().getElevators()){
+					e.removeObserver(this);
+				}
 				elevator.addPassenger(this);
-//				elevator.addObserver(this);
+				elevator.addObserver(this);
 				setState(PassengerState.ON_ELEVATOR);
 				this.mEmbarkingStrategy.enteredElevator(this, elevator);
 			}

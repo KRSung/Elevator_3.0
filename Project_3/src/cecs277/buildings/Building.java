@@ -5,6 +5,7 @@ import cecs277.elevators.Elevator;
 import cecs277.elevators.ElevatorObserver;
 import cecs277.passengers.Passenger;
 
+import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,10 @@ public class Building implements ElevatorObserver, FloorObserver {
 			mDirection = direction;
 		}
 	}
-	
+
+	public List<Elevator> getElevators(){
+		return mElevators;
+	}
 
 	// DONE: recreate your toString() here.
 	public String toString(){
