@@ -58,9 +58,9 @@ public class Simulation {
 		Logger.setInstance(log);
 
 
-		Logger.getInstance().logString("Enter number of floors: ");
+		System.out.println("Enter number of floors: ");
 		int floors = input.nextInt();
-		Logger.getInstance().logString("Enter number of elevators: ");
+		System.out.println("Enter number of elevators: ");
 		int elevCount = input.nextInt();
 
 		mBuilding = new Building(floors, elevCount, this);

@@ -9,6 +9,6 @@ public class StandardOutLogger extends Logger {
 
     @Override
     public void logString(String message) {
-        System.out.println(message);
+        System.out.println(Logger.getInstance().getSimulation().currentTime() + "s: " + message);
     }
 }
