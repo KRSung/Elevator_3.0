@@ -23,7 +23,7 @@ public abstract class Logger {
 	}
 
 	public void logEvent(Object b) {
-		logString(b.toString());
+		logString(mSimulation.currentTime() + "s: " + b.toString());
 	}
 	
 	public abstract void logString(String message);

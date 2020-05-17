@@ -103,10 +103,8 @@ public class Simulation {
 				Logger.getInstance().logEvent(nextEvent);
 			}
 
-			Logger.getInstance().logString("Building");
 			Logger.getInstance().logString(mBuilding.toString());
-
-			Logger.getInstance().logString("Enter time in seconds to simulate: ");
+			Logger.getInstance().logString("Simulate how many seconds?");
 			nextSimLength = input.nextInt();
 		}
 		/*

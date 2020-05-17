@@ -14,12 +14,12 @@ public class AttentiveDebarking implements DebarkingStrategy {
         //TODO schedule next step of travel for passenger
         if (elevator.getCurrentFloor().getNumber() == 1){
             //TODO leaves elevator
-            Logger.getInstance().logString(passenger.getName() + " " + passenger.getId()
+            Logger.getInstance().logEvent(passenger.getName() + " " + passenger.getId()
                     + " completed their trip and left the building.");
             passenger.scheduleEvent(elevator.getCurrentFloor());
         }
         else if (elevator.getCurrentFloor().getNumber() == passenger.getDestination()){
-            Logger.getInstance().logString(passenger.getName() + " " + passenger.getId()
+            Logger.getInstance().logEvent(passenger.getName() + " " + passenger.getId()
                     + " debarked at their destination floor " + elevator.getCurrentFloor().getNumber());
             passenger.scheduleEvent(elevator.getCurrentFloor());
         }

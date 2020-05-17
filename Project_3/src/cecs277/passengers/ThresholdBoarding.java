@@ -17,7 +17,7 @@ public class ThresholdBoarding implements BoardingStrategy {
             return true;
         }
         else {
-            Logger.getInstance().logString(passenger.getName() + " " + passenger.getId() +
+            Logger.getInstance().logEvent(passenger.getName() + " " + passenger.getId() +
                     " won't board elevator " + elevator.getNumber() + " on floor " +
                     elevator.getCurrentFloor() + " because it is above their threshold of " + mThreshold);
             elevator.getCurrentFloor().requestDirection(elevator.getCurrentDirection());

@@ -22,7 +22,7 @@ public class DistractedDebarking implements DebarkingStrategy {
         }
         else {
             if (elevator.getCurrentFloor().getNumber() == passenger.getDestination()) {
-                Logger.getInstance().logString(passenger.getName() + " " + passenger.getId() 
+                Logger.getInstance().logEvent(passenger.getName() + " " + passenger.getId() 
                         + " is distracted and missed their stop on floor " + elevator.getCurrentFloor().getNumber());
                 missed = true;
             }
@@ -37,12 +37,12 @@ public class DistractedDebarking implements DebarkingStrategy {
             passenger.scheduleEvent(elevator.getCurrentFloor());
         }
         else if (elevator.getCurrentFloor().getNumber() == passenger.getDestination()){
-            Logger.getInstance().logString(passenger.getName() + " " + passenger.getId()
+            Logger.getInstance().logEvent(passenger.getName() + " " + passenger.getId()
                     + " finally debarked at their destination floor " + passenger.getDestination());
             passenger.scheduleEvent(elevator.getCurrentFloor());
         }
         else {
-            Logger.getInstance().logString(passenger.getName() + " " + passenger.getId() +
+            Logger.getInstance().logEvent(passenger.getName() + " " + passenger.getId() +
                     " got of the elevator " + elevator.getNumber() + " on the wrong floor!");
             PassengerNextDestinationEvent ev = new PassengerNextDestinationEvent(s.currentTime() + 5, passenger, elevator.getCurrentFloor());
             s.scheduleEvent(ev);
