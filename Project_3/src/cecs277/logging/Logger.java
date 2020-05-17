@@ -5,6 +5,7 @@ import cecs277.Simulation;
 public abstract class Logger {
 	private static Logger mInstance;
 	private Simulation mSimulation;
+
 	public Logger(Simulation simulation) {
 		mSimulation = simulation;
 	}

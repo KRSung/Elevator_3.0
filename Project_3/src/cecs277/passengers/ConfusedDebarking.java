@@ -1,6 +1,7 @@
 package cecs277.passengers;
 
 import cecs277.elevators.Elevator;
+import cecs277.logging.Logger;
 
 public class ConfusedDebarking implements DebarkingStrategy {
     @Override
@@ -12,7 +13,8 @@ public class ConfusedDebarking implements DebarkingStrategy {
     public void departedElevator(Passenger passenger, Elevator elevator) {
         if (elevator.getCurrentFloor().getNumber() == 1){
             //TODO leaves the building
-            System.out.println(passenger.getName() + " " + passenger.getId() + " is confused and left the building after debarking elevator " + elevator.getNumber());
+            Logger.getInstance().logString(passenger.getName() + " " + passenger.getId()
+                    + " is confused and left the building after debarking elevator " + elevator.getNumber());
             passenger.scheduleEvent(elevator.getCurrentFloor());
         }
     }

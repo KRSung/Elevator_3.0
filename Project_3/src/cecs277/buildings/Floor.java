@@ -148,7 +148,6 @@ public class Floor implements ElevatorObserver {
 	// Observer methods.
 	@Override
 	public void elevatorDecelerating(Elevator elevator) {
-		// Done: if the elevator is arriving at THIS FLOOR, alert all the floor's observers that elevatorArriving.
 		if (elevator.getCurrentFloor() == this) {
 			ArrayList<FloorObserver> temp = new ArrayList<>(mObservers);
 			for (FloorObserver o : temp) {

@@ -24,10 +24,6 @@ public class WorkerPassengerFactory implements PassengerFactory {
         return "W";
     }
 
-    public void setFactoryWeight(int factoryWeight){
-        mFactoryWeight = factoryWeight;
-    }
-
     @Override
     public int factoryWeight() {
         return mFactoryWeight;

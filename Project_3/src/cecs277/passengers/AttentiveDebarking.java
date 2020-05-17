@@ -1,6 +1,7 @@
 package cecs277.passengers;
 
 import cecs277.elevators.Elevator;
+import cecs277.logging.Logger;
 
 public class AttentiveDebarking implements DebarkingStrategy {
     @Override
@@ -13,11 +14,13 @@ public class AttentiveDebarking implements DebarkingStrategy {
         //TODO schedule next step of travel for passenger
         if (elevator.getCurrentFloor().getNumber() == 1){
             //TODO leaves elevator
-            System.out.println(passenger.getName() + " " + passenger.getId() + " completed their trip and left the building.");
+            Logger.getInstance().logString(passenger.getName() + " " + passenger.getId()
+                    + " completed their trip and left the building.");
             passenger.scheduleEvent(elevator.getCurrentFloor());
         }
         else if (elevator.getCurrentFloor().getNumber() == passenger.getDestination()){
-            System.out.println(passenger.getName() + " " + passenger.getId() + " debarked at their destination floor " + elevator.getCurrentFloor().getNumber());
+            Logger.getInstance().logString(passenger.getName() + " " + passenger.getId()
+                    + " debarked at their destination floor " + elevator.getCurrentFloor().getNumber());
             passenger.scheduleEvent(elevator.getCurrentFloor());
         }
     }

@@ -100,15 +100,6 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 		}
 		// This else should not happen if your code is correct. Do not remove this branch; it reveals errors in your code.
 		else {
-			System.out.println();
-			System.out.println();
-			for (Elevator e : elevator.getBuilding().getElevators()){
-				System.out.println(e.getObservers());
-				System.out.println();
-			}
-			System.out.println(floor.getWaitingPassengers());
-			System.out.println(floor);
-			System.out.println(mCurrentState);
 			throw new RuntimeException(this.getName() + " " + this.getId() + " is observing Floor " + floor.getNumber() + " but they are " +
 			 "not waiting on that floor.");
 		}
@@ -129,9 +120,6 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 			if (mDebarkingStrategy.willLeaveElevator(this, elevator)) {
 				elevator.removePassenger(this);
 				elevator.removeObserver(this);
-//				System.out.println();
-//				System.out.println(elevator.getObservers().toString());
-//				System.out.println();
 				setState(PassengerState.BUSY);
 				mDebarkingStrategy.departedElevator(this, elevator);
 			}
@@ -152,64 +140,14 @@ public class Passenger implements FloorObserver, ElevatorObserver {
 			}
 			else {
 				elevator.removeObserver(this);
+				elevator.getCurrentFloor().requestDirection(elevator.getCurrentDirection());
 			}
 		}
-
-
-		//OLD CODE
-		// The elevator is arriving at our destination. Remove ourselves from the elevator, and stop observing it.
-		// Does NOT handle any "next" destination...
-
-		/*if (mCurrentState == PassengerState.ON_ELEVATOR && elevator.getCurrentFloor().getNumber() == getDestination()) {
-			// DONE: remove this passenger from the elevator, and as an observer of the elevator. Call the
-			// leavingElevator method to allow a derived class to do something when the passenger departs.
-			// Set the current state to BUSY.
-			elevator.removePassenger(this);
-			elevator.removeObserver(this);
-			leavingElevator(elevator);
-			setState(PassengerState.BUSY);
-
-		}
-
-		// The elevator has arrived on the floor we are waiting on. If the elevator has room for us, remove ourselves
-		// from the floor, and enter the elevator.
-		else if (mCurrentState == PassengerState.WAITING_ON_FLOOR && elevator.getCurrentFloor().getWaitingPassengers().contains(this)) {
-			// DONE: determine if the passenger will board the elevator using willBoardElevator.
-			// If so, remove the passenger from the current floor, and as an observer of the current floor;
-			// then add the passenger as an observer of and passenger on the elevator. Then set the mCurrentState
-			// to ON_ELEVATOR.
-			if (willBoardElevator(elevator)){
-				Floor currentFloor = elevator.getCurrentFloor();
-				currentFloor.removeWaitingPassenger(this);
-				currentFloor.removeObserver(this);
-				elevator.addPassenger(this);
-				elevator.addObserver(this);
-				setState(PassengerState.ON_ELEVATOR);
-			}
-			
-		}*/
 	}
-	
-	/**
-	 * Returns the passenger's current destination (what floor they are travelling to).
-	 */
-//	public abstract int getDestination();
-	
-	/**
-	 * Called to determine whether the passenger will board the given elevator that is moving in the direction the
-	 * passenger wants to travel.
-	 */
-//	protected abstract boolean willBoardElevator(Elevator elevator);
-	
-	/**
-	 * Called when the passenger is departing the given elevator.
-	 */
-//	protected abstract void leavingElevator(Elevator elevator);
-	
+
 	// This will be overridden by derived types.
 	@Override
 	public String toString() {
-//		return Integer.toString(getDestination());
 		return getName() + " " + getId();
 	}
 	

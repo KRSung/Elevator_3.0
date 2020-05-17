@@ -14,9 +14,7 @@ import java.util.ArrayList;
  */
 public class DispatchMode implements OperationMode {
 	public static boolean canBeDisabled = false;
-	// The destination floor of the dispatch.
 	private Floor mDestination;
-	// The direction requested by the destination floor; NOT the direction the elevator must move to get to that floor.
 	private Elevator.Direction mDesiredDirection;
 	private Floor mCurrentFloor;
 	private Building mBuilding;
@@ -87,30 +85,21 @@ public class DispatchMode implements OperationMode {
 				return;
 
 			case MOVING:
-//				System.out.println(mCurrentFloor + " JDFSL " + mDestination);
-//				if (mCurrentFloor == mDestination){
-//					System.out.println(mCurrentFloor + "     jkefjkdalf");
-//					elevator.scheduleStateChange(Elevator.ElevatorState.DECELERATING, 2);
-//				}
-//				else{
-					if (mCurrentDirection == Elevator.Direction.MOVING_UP ) {
-						elevator.setCurrentFloor(mBuilding.getFloor(mCurrentFloor.getNumber() + 1));
-					}
-					else {
-						elevator.setCurrentFloor(mBuilding.getFloor(mCurrentFloor.getNumber() - 1));
-					}
+				if (mCurrentDirection == Elevator.Direction.MOVING_UP ) {
+					elevator.setCurrentFloor(mBuilding.getFloor(mCurrentFloor.getNumber() + 1));
+				}
+				else {
+					elevator.setCurrentFloor(mBuilding.getFloor(mCurrentFloor.getNumber() - 1));
+				}
 
-					//TODO may not work for everthing
-					if ((mCurrentDirection == Elevator.Direction.MOVING_DOWN && (mCurrentFloor.getNumber() != mDestination.getNumber() + 1)) || (mCurrentDirection == Elevator.Direction.MOVING_UP && (mCurrentFloor.getNumber() != mDestination.getNumber() - 1))) {
-						elevator.scheduleStateChange(Elevator.ElevatorState.MOVING, 2);
-					}
-					else {
+				if ((mCurrentDirection == Elevator.Direction.MOVING_DOWN && (mCurrentFloor.getNumber() != mDestination.getNumber() + 1)) || (mCurrentDirection == Elevator.Direction.MOVING_UP && (mCurrentFloor.getNumber() != mDestination.getNumber() - 1))) {
+					elevator.scheduleStateChange(Elevator.ElevatorState.MOVING, 2);
+				}
+				else {
 
-						elevator.scheduleStateChange(Elevator.ElevatorState.DECELERATING, 2);
+					elevator.scheduleStateChange(Elevator.ElevatorState.DECELERATING, 2);
 
-					}
-//				}
-//				System.out.println(elevator.getCurrentFloor());
+				}
 				return;
 
 			case DECELERATING:

@@ -11,8 +11,6 @@ import java.util.stream.StreamSupport;
  * A simulation event that adds a new random passenger on floor 1, and then schedules the next spawn event.
  */
 public class SpawnPassengerEvent extends SimulationEvent {
-//	private static long SPAWN_MEAN_DURATION = 10_800;
-//	private static long SPAWN_STDEV_DURATION = 3_600;
 
 	// After executing, will reference the Passenger object that was spawned.
 	private Passenger mPassenger;
@@ -25,16 +23,15 @@ public class SpawnPassengerEvent extends SimulationEvent {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "Adding " + mPassenger.getName() + " " + mPassenger.getId() + " [-> " + mPassenger.getDestination() + "] to floor 1.";
+		return super.toString() + "Adding " + mPassenger.getName() + " " + mPassenger.getId()
+				+ " [-> " + mPassenger.getDestination() + "] to floor 1.";
 	}
 	
 	@Override
 	public void execute(Simulation sim) {
 		Iterable<PassengerFactory> factories = sim.getPassengerFactories();
-		int totalWeight = StreamSupport.stream(factories.spliterator(), false).mapToInt(f -> f.factoryWeight()).sum();
-//		for (PassengerFactory f : factories){
-//			totalWeight += f.factoryWeight();
-//		}
+		int totalWeight = StreamSupport.stream(factories.spliterator(), false)
+				.mapToInt(f -> f.factoryWeight()).sum();
 
 		int num = 0;
 		int r = sim.getRandom().nextInt(totalWeight);

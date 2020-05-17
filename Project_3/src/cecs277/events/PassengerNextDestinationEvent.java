@@ -18,7 +18,6 @@ public class PassengerNextDestinationEvent extends SimulationEvent {
 		mStartingFloor = startingFloor;
 	}
 	
-	
 	@Override
 	public void execute(Simulation sim) {
 		mPassenger.setState(Passenger.PassengerState.WAITING_ON_FLOOR);

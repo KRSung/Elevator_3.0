@@ -119,10 +119,6 @@ public class Building implements ElevatorObserver, FloorObserver {
 	public Simulation getSimulation() {
 		return mSimulation;
 	}
-
-//	public Queue<Integer> getmWaitingFloors(){
-//		return mWaitingFloors;
-//	}
 	
 	@Override
 	public void elevatorDecelerating(Elevator elevator) {
@@ -136,8 +132,6 @@ public class Building implements ElevatorObserver, FloorObserver {
 	
 	@Override
 	public void elevatorWentIdle(Elevator elevator) {
-		// DONE: if mWaitingFloors is not empty, remove the first entry from the queue and dispatch the elevator to that floor.
-		//added the !
 		if (!mWaitingFloors.isEmpty()){
 			FloorRequest temp = mWaitingFloors.remove();
 			elevator.dispatchToFloor(temp.mDestination, temp.mDirection);
@@ -155,8 +149,6 @@ public class Building implements ElevatorObserver, FloorObserver {
 	public void directionRequested(Floor floor, Elevator.Direction direction) {
 		boolean elevatorDispatched = false;
 
-
-		//DONE i wonder if we should break after dispatching one elevator or if it should be a race between elevators lol
 		for(Elevator e: mElevators){
 			if (e.canBeDispatchedToFloor(floor)){
 				e.dispatchToFloor(floor, direction);
@@ -168,9 +160,5 @@ public class Building implements ElevatorObserver, FloorObserver {
 		if (!elevatorDispatched) {
 			mWaitingFloors.add(new FloorRequest(floor, direction));
 		}
-//		System.out.println("\nDirection Requested " + direction + " Floor " + floor.getNumber() + " mWaitingFloors " + mWaitingFloors.toString() + "\n");
-
-		// DONE: go through each elevator. If an elevator is idle, dispatch it to the given floor.
-		// DONE: if no elevators are idle, then add the floor number to the mWaitingFloors queue.
 	}
 }

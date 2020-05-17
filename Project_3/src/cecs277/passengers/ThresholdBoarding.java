@@ -1,6 +1,7 @@
 package cecs277.passengers;
 
 import cecs277.elevators.Elevator;
+import cecs277.logging.Logger;
 
 public class ThresholdBoarding implements BoardingStrategy {
 
@@ -16,7 +17,7 @@ public class ThresholdBoarding implements BoardingStrategy {
             return true;
         }
         else {
-            System.out.println(passenger.getName() + " " + passenger.getId() +
+            Logger.getInstance().logString(passenger.getName() + " " + passenger.getId() +
                     " won't board elevator " + elevator.getNumber() + " on floor " +
                     elevator.getCurrentFloor() + " because it is above their threshold of " + mThreshold);
             elevator.getCurrentFloor().requestDirection(elevator.getCurrentDirection());

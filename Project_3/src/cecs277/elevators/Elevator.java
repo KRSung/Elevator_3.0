@@ -10,9 +10,7 @@ import cecs277.events.ElevatorStateEvent;
 import cecs277.passengers.Passenger;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 public class Elevator implements FloorObserver {
@@ -89,7 +87,6 @@ public class Elevator implements FloorObserver {
 	}
 
 	protected void announceElevatorDecelerating(){
-
 		ArrayList<ElevatorObserver> temp = new ArrayList<>(mObservers);
 		for(ElevatorObserver o : temp){
 			o.elevatorDecelerating(this);
@@ -134,7 +131,6 @@ public class Elevator implements FloorObserver {
 	 * Sends an idle elevator to the given floor.
 	 */
 	public void dispatchToFloor(Floor floor, Elevator.Direction direction) {
-		//FIXME added this for multiple elevator error
 		if (canBeDispatchedToFloor(floor)) {
 			mOperationMode.dispatchToFloor(this, floor, direction);
 		}
@@ -163,16 +159,6 @@ public class Elevator implements FloorObserver {
 
 	public Direction getCurrentDirection() {
 		return mCurrentDirection;
-	}
-	
-	/**
-	 * Returns true if this elevator is in the idle state.
-	 */
-	public boolean isIdle() {
-		if (mCurrentState == ElevatorState.IDLE_STATE){
-			return true;
-		}
-		return false;
 	}
 
 	public int getNumber() {
@@ -245,7 +231,6 @@ public class Elevator implements FloorObserver {
 		if (buttons.length() > 1){
 			buttons = buttons.substring(0, buttons.length() - 2);
 		}
-//		buttons = buttons.substring(0, buttons.length());
 		return "Elevator " +  mNumber + " [" + mOperationMode + "] - " + mCurrentFloor + " - " + mCurrentState + " - " + mCurrentDirection + " - "
 		 + "[" +
 			mPassengers.stream()

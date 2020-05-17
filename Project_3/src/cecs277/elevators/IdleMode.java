@@ -22,8 +22,6 @@ public class IdleMode implements OperationMode {
 	public void dispatchToFloor(Elevator elevator, Floor targetFloor, Elevator.Direction targetDirection) {
 		// Must remove ourselves as an observer of our floor, since we are moving on.
 		elevator.getCurrentFloor().removeObserver(elevator);
-		
-		// TODO: you will need to create this method in the Elevator class, along with ElevatorModeEvent to support it.
 		elevator.scheduleModeChange(new DispatchMode(targetFloor, targetDirection),
 				Elevator.ElevatorState.IDLE_STATE, 0);
 	}
@@ -35,12 +33,8 @@ public class IdleMode implements OperationMode {
 	@Override
 	public void tick(Elevator elevator) {
 		Floor currentFloor = elevator.getCurrentFloor();
-		
-		// Paranoia: I found a bug where an elevator observed its floor twice. This prevents it.
 		currentFloor.removeObserver(elevator);
 		currentFloor.addObserver(elevator);
-		
-		// TODO: cause the elevator to announce elevatorWentIdle() to its observers.
 		elevator.announceElevatorIdle();
 	}
 	

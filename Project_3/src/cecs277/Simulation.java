@@ -1,14 +1,16 @@
 package cecs277;
 
 import cecs277.buildings.Building;
+import cecs277.elevators.DispatchMode;
 import cecs277.events.SimulationEvent;
 import cecs277.events.SpawnPassengerEvent;
+import cecs277.logging.Logger;
+import cecs277.logging.StandardOutLogger;
 import cecs277.passengers.*;
 
 import java.util.*;
 
 public class Simulation {
-	private int mTotal;
 	private List<PassengerFactory> mPassengerFactories = new ArrayList<>();
 	private Random mRandom;
 	private PriorityQueue<SimulationEvent> mEvents = new PriorityQueue<>();
@@ -52,9 +54,13 @@ public class Simulation {
 	}
 	
 	public void startSimulation(Scanner input) {
-		System.out.println("Enter number of floors: ");
+		StandardOutLogger log = new StandardOutLogger(this);
+		Logger.setInstance(log);
+
+
+		Logger.getInstance().logString("Enter number of floors: ");
 		int floors = input.nextInt();
-		System.out.println("Enter number of elevators: ");
+		Logger.getInstance().logString("Enter number of elevators: ");
 		int elevCount = input.nextInt();
 
 		mBuilding = new Building(floors, elevCount, this);
@@ -67,8 +73,7 @@ public class Simulation {
 		boolean simulateRealTime = false;
 		// Change the scale below to less than 1 to speed up the "real time".
 		double realTimeScale = 1.0;
-		
-		// DONE: the simulation currently stops at 200s. Instead, ask the user how long they want to simulate.
+
 		System.out.println("Enter time in seconds to simulate: ");
 		nextSimLength = input.nextInt();
 
@@ -95,15 +100,13 @@ public class Simulation {
 
 				mCurrentTime += diffTime;
 				nextEvent.execute(this);
-				System.out.println(nextEvent);
+				Logger.getInstance().logEvent(nextEvent);
 			}
 
-			// DONE: print the Building after simulating the requested time.
+			Logger.getInstance().logString("Building");
+			Logger.getInstance().logString(mBuilding.toString());
 
-			System.out.println("Building");
-			System.out.println(mBuilding.toString());
-
-			System.out.println("Enter time in seconds to simulate: ");
+			Logger.getInstance().logString("Enter time in seconds to simulate: ");
 			nextSimLength = input.nextInt();
 		}
 		/*
@@ -114,9 +117,15 @@ public class Simulation {
 	
 	public static void main(String[] args) {
 		Scanner s = new Scanner(System.in);
-		// DONE: ask the user for a seed value and change the line below.
 		System.out.println("Enter seed value: ");
 		int x = s.nextInt();
+
+		System.out.println("Do you wish to enable the Disabled Operation?\nType y for yes or n for no: ");
+		String disabledOp = s.next();
+		if (disabledOp.equals("y")){
+			DispatchMode.canBeDisabled = true;
+		}
+
 		Simulation sim = new Simulation(new Random(x));
 		sim.mPassengerFactories.add(new VisitorPassengerFactory(10));
 		sim.mPassengerFactories.add(new WorkerPassengerFactory(2));

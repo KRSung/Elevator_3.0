@@ -41,6 +41,6 @@ public abstract class SimulationEvent implements Comparable<SimulationEvent> {
 	
 	@Override
 	public String toString() {
-		return mScheduledTime + "s: ";
+		return "";
 	}
 }
