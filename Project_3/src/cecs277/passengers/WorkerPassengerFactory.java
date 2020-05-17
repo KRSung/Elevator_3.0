@@ -36,7 +36,7 @@ public class WorkerPassengerFactory implements PassengerFactory {
     //FIXME workers board with at most 3 people so i think it should be 4 here
     @Override
     public BoardingStrategy createBoardingStrategy(Simulation simulation) {
-        return new ThresholdBoarding(4);
+        return new ThresholdBoarding(3);
     }
 
     @Override

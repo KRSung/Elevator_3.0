@@ -133,13 +133,13 @@ public class Elevator implements FloorObserver {
 	/**
 	 * Sends an idle elevator to the given floor.
 	 */
-	public void dispatchToFloor(Floor floor) {
-		if (floor.getWaitingPassengers().get(0).getDestination() > floor.getNumber()){
-			mOperationMode.dispatchToFloor(this, floor, Direction.MOVING_UP);
-		}
-		else {
-			mOperationMode.dispatchToFloor(this, floor, Direction.MOVING_DOWN);
-		}
+	public void dispatchToFloor(Floor floor, Elevator.Direction direction) {
+//		if (floor.getWaitingPassengers().get(0).getDestination() > floor.getNumber()){
+		mOperationMode.dispatchToFloor(this, floor, direction);
+//		}
+//		else {
+//			mOperationMode.dispatchToFloor(this, floor, Direction.MOVING_DOWN);
+//		}
 	}
 	
 	// Simple accessors

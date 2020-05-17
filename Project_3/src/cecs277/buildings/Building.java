@@ -135,7 +135,8 @@ public class Building implements ElevatorObserver, FloorObserver {
 		// DONE: if mWaitingFloors is not empty, remove the first entry from the queue and dispatch the elevator to that floor.
 		//added the !
 		if (!mWaitingFloors.isEmpty()){
-			elevator.dispatchToFloor(mWaitingFloors.remove().mDestination);
+			FloorRequest temp = mWaitingFloors.remove();
+			elevator.dispatchToFloor(temp.mDestination, temp.mDirection);
 		}
 	}
 	
@@ -154,7 +155,7 @@ public class Building implements ElevatorObserver, FloorObserver {
 		//DONE i wonder if we should break after dispatching one elevator or if it should be a race between elevators lol
 		for(Elevator e: mElevators){
 			if (e.canBeDispatchedToFloor(floor)){
-				e.dispatchToFloor(floor);
+				e.dispatchToFloor(floor, direction);
 				elevatorDispatched = true;
 				break;
 			}

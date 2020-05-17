@@ -32,7 +32,7 @@ public class DeliveryPassengerFactory implements PassengerFactory {
 
     @Override
     public BoardingStrategy createBoardingStrategy(Simulation simulation) {
-        return new ThresholdBoarding(6);
+        return new ThresholdBoarding(5);
     }
 
     @Override

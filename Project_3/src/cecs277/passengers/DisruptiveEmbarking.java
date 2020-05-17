@@ -6,12 +6,10 @@ public class DisruptiveEmbarking implements EmbarkingStrategy {
     @Override
     public void enteredElevator(Passenger passenger, Elevator elevator) {
         if (elevator.getCurrentDirection() == Elevator.Direction.MOVING_DOWN || elevator.getCurrentFloor().getNumber() > passenger.getDestination()){
-            for (int i = passenger.getDestination(); i < 0; i--) {
-                elevator.requestFloor(i);
-            }
+            elevator.requestFloor(passenger.getDestination());
         }
         else if (elevator.getCurrentDirection() == Elevator.Direction.MOVING_UP || elevator.getCurrentFloor().getNumber() < passenger.getDestination()){
-            for (int i = passenger.getDestination(); i < elevator.getBuilding().getFloorCount(); i++) {
+            for (int i = passenger.getDestination(); i <= elevator.getBuilding().getFloorCount(); i++) {
                 elevator.requestFloor(i);
             }
             System.out.println(passenger.getName() + " " + passenger.getId() + " is being disruptive and requested floor " + passenger.getDestination() + " and everything above it on elevator " + elevator.getNumber() + ".");
