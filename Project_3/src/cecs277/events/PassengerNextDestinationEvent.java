@@ -16,6 +16,7 @@ public class PassengerNextDestinationEvent extends SimulationEvent {
 		super(scheduledTime);
 		mPassenger = passenger;
 		mStartingFloor = startingFloor;
+		setPriority(3);
 	}
 	
 	@Override

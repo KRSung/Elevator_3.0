@@ -19,6 +19,7 @@ public class SpawnPassengerEvent extends SimulationEvent {
 	public SpawnPassengerEvent(long scheduledTime, Building building) {
 		super(scheduledTime);
 		mBuilding = building;
+		setPriority(4);
 	}
 	
 	@Override

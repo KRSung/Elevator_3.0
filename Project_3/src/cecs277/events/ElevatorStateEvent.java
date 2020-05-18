@@ -14,6 +14,7 @@ public class ElevatorStateEvent extends SimulationEvent {
 		super(scheduledTime);
 		mNewState = newState;
 		mElevator = elevator;
+		setPriority(2);
 	}
 
 	@Override

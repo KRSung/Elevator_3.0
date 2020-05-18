@@ -14,6 +14,7 @@ public class ElevatorModeEvent extends SimulationEvent{
         mNewMode = newMode;
         mElevator = elevator;
         mNewState = newState;
+        setPriority(1);
     }
 
     @Override

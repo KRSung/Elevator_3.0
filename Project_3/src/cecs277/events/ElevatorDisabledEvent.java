@@ -12,6 +12,7 @@ public class ElevatorDisabledEvent extends SimulationEvent{
         super(scheduledTime);
         mElevator = elevator;
         mDispatchMode = dispatchMode;
+        setPriority(1);
     }
 
     @Override

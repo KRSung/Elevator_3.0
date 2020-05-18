@@ -11,6 +11,12 @@ import cecs277.passengers.Passenger;
 public abstract class SimulationEvent implements Comparable<SimulationEvent> {
 	// The time at which this event is scheduled to be executed.
 	private long mScheduledTime;
+
+	public void setPriority(Integer priority) {
+		mPriority = priority;
+	}
+
+	private Integer mPriority;
 	
 	/**
 	 * Sets the scheduled time of the event.
@@ -79,9 +85,15 @@ public abstract class SimulationEvent implements Comparable<SimulationEvent> {
 //				return -1;
 //			}
 //		}
-		return Long.compare(mScheduledTime, o.mScheduledTime);
+
+		if (mScheduledTime != o.mScheduledTime || mScheduledTime == 0){
+			return Long.compare(mScheduledTime, o.mScheduledTime);
+
+		}
+		return Integer.compare(mPriority, o.mPriority);
+
 	}
-	
+
 	@Override
 	public String toString() {
 		return "";
