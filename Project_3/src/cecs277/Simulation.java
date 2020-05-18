@@ -118,12 +118,6 @@ public class Simulation {
 		System.out.println("Enter seed value: ");
 		int x = s.nextInt();
 
-		System.out.println("Do you wish to enable the Disabled Operation?\nType y for yes or n for no: ");
-		String disabledOp = s.next();
-		if (disabledOp.equals("y")){
-			DispatchMode.canBeDisabled = true;
-		}
-
 		Simulation sim = new Simulation(new Random(x));
 		sim.mPassengerFactories.add(new VisitorPassengerFactory(10));
 		sim.mPassengerFactories.add(new WorkerPassengerFactory(2));

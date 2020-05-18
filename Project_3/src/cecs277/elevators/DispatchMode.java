@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * request until it arrives at the destination.
  */
 public class DispatchMode implements OperationMode {
-	public static boolean canBeDisabled = false;
+	private static boolean canBeDisabled = true;
 	private Floor mDestination;
 	private Elevator.Direction mDesiredDirection;
 	private Floor mCurrentFloor;
