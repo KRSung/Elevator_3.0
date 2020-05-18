@@ -102,6 +102,9 @@ public class Simulation {
 				nextEvent.execute(this);
 				Logger.getInstance().logEvent(nextEvent);
 			}
+			if(mCurrentTime < nextStopTime){
+				mCurrentTime = nextStopTime;
+			}
 
 			Logger.getInstance().logString(mBuilding.toString());
 			Logger.getInstance().logString("Simulate how many seconds?");

@@ -44,48 +44,6 @@ public abstract class SimulationEvent implements Comparable<SimulationEvent> {
 	 */
 	@Override
 	public int compareTo(SimulationEvent o) {
-//		if(mScheduledTime != o.mScheduledTime){
-//			return Long.compare(mScheduledTime, o.mScheduledTime);
-//		}
-//		else if (this instanceof ElevatorModeEvent){
-//			if(!(o instanceof ElevatorModeEvent)){
-//				return 1;
-//			}
-//			else{
-//				return 0;
-//			}
-//		}
-//		else if (this instanceof ElevatorStateEvent){
-//			if(o instanceof ElevatorStateEvent){
-//				return 0;
-//			}
-//			else if (o instanceof ElevatorModeEvent){
-//				return -1;
-//			}
-//			else{
-//				return 1;
-//			}
-//		}
-//		else if (this instanceof PassengerNextDestinationEvent){
-//			if(o instanceof PassengerNextDestinationEvent){
-//				return 0;
-//			}
-//			else if (o instanceof ElevatorModeEvent || o instanceof ElevatorStateEvent){
-//				return -1;
-//			}
-//			else{
-//				return 1;
-//			}
-//		}
-//		else if (this instanceof SpawnPassengerEvent){
-//			if(o instanceof SpawnPassengerEvent){
-//				return 0;
-//			}
-//			else {
-//				return -1;
-//			}
-//		}
-
 		if (mScheduledTime != o.mScheduledTime || mScheduledTime == 0){
 			return Long.compare(mScheduledTime, o.mScheduledTime);
 

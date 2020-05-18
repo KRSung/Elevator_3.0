@@ -1,11 +1,7 @@
 package cecs277.elevators;
 
-import cecs277.Simulation;
 import cecs277.buildings.Building;
 import cecs277.buildings.Floor;
-import cecs277.passengers.EmbarkingStrategy;
-
-import java.util.ArrayList;
 
 /**
  * A DispatchMode elevator is in the midst of a dispatch to a target floor in order to handle a request in a target
